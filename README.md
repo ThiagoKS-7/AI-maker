@@ -67,9 +67,11 @@ Under development
 
 ## ⛏️ Build sugestions <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) or [PostgreSQL](https://www.postgresql.org)- Database
-- [Django](https://expressjs.com/) - WebServer Framework
-- [Python](https://www.python.org) - Server environment
+- [MongoDB](https://www.mongodb.com/) and [Firebase](https://firebase.google.com)- Database
+- [Vue](https://vuejs.org) - WebServer Framework
+- [Python](https://www.python.org) - ML models training language
+- [Nodejs](https://nodejs.org/en/) - Server Framework
+- [Tensorflow](https://www.tensorflow.org/resources/models-datasets) - Main ML library
 
 ## ✍️ Authors <a name = "authors"></a>
 
