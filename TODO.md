@@ -1,0 +1,28 @@
+- make django app, with basic layout;
+- ocr feature;
+- sklearn Ai's;
+- python neural network training;
+- YOLO;
+- teachable machine api consuption;
+- Azure Ai consumption;
+- Google cloud AI consumption;
+- Oracle AI consumption;
+- Tensorflow docs;
+- Linkeding learning redirect;
+- Udemy python courses tips;
+- Discord groups;
+- React Native Machine Learning app default template;
+- Flutter Machine Learning app default template;
+- Iot Ai's
+- Edge computing Ai deployment
+- voice command Ai's
+- Image classification Ai's
+- Image tracking Ai's
+- Face detection Ai's
+- Image generation Ai's
+- Ai's for Discord
+- Dataset creation
+- Dataset augmentation
+- Dataset finetuning
+- Dataset Web scraping
+- Dataset manual & auto labeling
