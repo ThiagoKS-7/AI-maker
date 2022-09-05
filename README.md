@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://user-images.githubusercontent.com/83460816/184789013-8b7475ac-3db4-4232-ac74-0f7f0ba9e230.png" alt="Project logo"></a>
+ <img width=200px src="https://user-images.githubusercontent.com/83460816/188367621-2e70843d-1d39-4726-9ba1-a9fa8ce33c8f.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">AI Maker</h3>
