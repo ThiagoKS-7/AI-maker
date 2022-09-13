@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div class="page-wrapper">
+    <HomeTable />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import HomeTable from "@/components/organisms/HomeTable/HomeTable.vue";
 
 export default defineComponent({
   name: "HomeView",
   components: {
-    HelloWorld,
+    HomeTable,
   },
 });
 </script>
+<style lang="scss" scoped>
+.page-wrapper {
+  background-color: #141a25;
+  opacity: 0.8;
+  height: 100%;
+}
+</style>
