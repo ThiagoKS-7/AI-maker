@@ -31,35 +31,39 @@
 - [Authors](#authors)
 
 ## 🧐 About <a name = "about"></a>
-AI maker will be a desktop application that agregates cloud services, AI in-cloud and local training, model deployment, 
+
+AI maker will be a desktop application that agregates cloud services, AI in-cloud and local training, model deployment,
 mobile deployment & documentations and tutorials about machine learning.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
+### Project setup
 
-  ### Project setup
-  ```
-  yarn install
-  ```
+```
+npm i
+```
 
-  ### Compiles and hot-reloads for development
-  ```
-  yarn serve
-  ```
+### Fixes files with prettier
 
-  ### Compiles and minifies for production
-  ```
-  yarn build
-  ```
+```
+npx prettier --write .
+```
 
-  ### Lints and fixes files
-  ```
-  yarn lint
+### Compiles and minifies for production
+
+```
+yarn build
+```
+
+### Lints and fixes files
+
+```
+yarn lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## 🎈 Usage <a name="usage"></a>
 
