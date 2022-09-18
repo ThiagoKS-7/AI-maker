@@ -85,6 +85,12 @@ nav {
     .menu_icon {
       width: 30px;
       height: 30px;
+      opacity: 1;
+      cursor: default;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
     }
   }
   .menu_options {

@@ -4,8 +4,32 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/HomeView.vue"),
+    component: () => import("../views/initialPage/HomeView.vue"),
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: () => import("../views/initialPage/Dashboard.vue"),
+  },
+  {
+    path: "/mng-projects",
+    name: "mng-projects",
+    component: () => import("../views/initialPage/ManageProjects.vue"),
+  },
+  {
+    path: "/cloud-services",
+    name: "cloud-services",
+    component: () => import("../views/initialPage/CloudServices.vue"),
+  },
+  {
+    path: "/contrib",
+    name: "contrib",
+    component: () => import("../views/initialPage/Contribute.vue"),
+  },
+  {
+    path: "/mng-data",
+    name: "mng-data",
+    component: () => import("../views/initialPage/ManageDatasets.vue"),
   },
 ];
 
