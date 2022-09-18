@@ -36,13 +36,13 @@ export default defineComponent({
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+  align-items: center;
   cursor: default;
   height: fit-content;
   .svg_icon {
     width: 210px;
     height: 210px;
     transition: all 0.2s ease-in-out;
-    filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
     @media only screen and (min-width: 1870px) {
       width: 220px;
       height: 220px;
@@ -52,7 +52,6 @@ export default defineComponent({
     width: 200px;
     height: 190px;
     transition: all 0.2s ease-in-out;
-    filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
     @media only screen and (min-width: 1870px) {
       width: 230px;
       height: 220px;
@@ -67,16 +66,18 @@ export default defineComponent({
     padding: 0 0.7em;
     cursor: pointer;
     > .png_icon {
-      width: 250px;
-      height: 200px;
+      width: 220px;
+      height: 180px;
+      filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
       @media only screen and (min-width: 1870px) {
         width: 250px;
         height: 230px;
       }
     }
     > .svg_icon {
-      width: 260px;
-      height: 230px;
+      width: 230px;
+      height: 200px;
+      filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
       @media only screen and (min-width: 1870px) {
         width: 270px;
         height: 240px;
