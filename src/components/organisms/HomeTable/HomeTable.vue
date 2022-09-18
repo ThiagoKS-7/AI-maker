@@ -1,7 +1,16 @@
 <template>
   <div class="table-wrapper">
-    <Title />
-    <InitialMenu />
+    <div class="mask"></div>
+    <div class="content">
+      <Title />
+      <InitialMenu
+        @click-new="$emit('click-new', $event)"
+        @click-mng="$emit('click-mng', $event)"
+        @click-cloud="$emit('click-cloud', $event)"
+        @click-contrib="$emit('click-contrib', $event)"
+        @click-data="$emit('click-data', $event)"
+      />
+    </div>
   </div>
 </template>
 
@@ -22,5 +31,20 @@ export default defineComponent({
 <style scoped>
 .table-wrapper {
   opacity: 1;
+  position: relative;
+}
+.content {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+}
+.mask {
+  background-color: #141a25;
+  opacity: 0.8;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  top: 0%;
 }
 </style>
