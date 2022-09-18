@@ -42,7 +42,7 @@ export default defineComponent({
     width: 210px;
     height: 210px;
     transition: all 0.2s ease-in-out;
-    filter: drop-shadow(0 0 0.4cm rgb(38, 212, 255));
+    filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
     @media only screen and (min-width: 1870px) {
       width: 220px;
       height: 220px;
@@ -52,7 +52,7 @@ export default defineComponent({
     width: 200px;
     height: 190px;
     transition: all 0.2s ease-in-out;
-    filter: drop-shadow(0 0 0.4cm rgb(38, 212, 255));
+    filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
     @media only screen and (min-width: 1870px) {
       width: 230px;
       height: 220px;
