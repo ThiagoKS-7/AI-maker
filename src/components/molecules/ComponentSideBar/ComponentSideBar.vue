@@ -3,7 +3,7 @@
     <div class="description">Exemplos de Nodes</div>
     <div class="nodes">
       <div
-        class="vue-flow__node-input"
+        class="vue-flow__node-input test"
         :draggable="true"
         @dragstart="onDragStart($event, 'input')"
       >
@@ -41,3 +41,13 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.description {
+  font-size: 25px;
+}
+.nodes {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+</style>
