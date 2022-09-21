@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <div class="title_container">
+    <div class="title_container" @click="$router.push('/')">
       <img
         class="icon"
         src="https://user-images.githubusercontent.com/83460816/184789013-8b7475ac-3db4-4232-ac74-0f7f0ba9e230.png"
@@ -10,8 +10,16 @@
     <!-- <router-link to="/">Home</router-link> -->
     <div class="menu">
       <div class="icons">
-        <img class="menu_icon" src="./assets/initialPage/home.svg" />
-        <img class="menu_icon" src="./assets/initialPage/exit.svg" />
+        <img
+          class="menu_icon"
+          src="./assets/initialPage/home.svg"
+          @click="$router.push('/')"
+        />
+        <img
+          class="menu_icon"
+          src="./assets/initialPage/exit.svg"
+          @click="$router.push('/login')"
+        />
       </div>
       <div class="menu_options">
         <ul class="menu_list">
@@ -32,7 +40,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
+  height: 88vh;
   background-color: transparent;
 }
 
@@ -41,6 +49,7 @@ body {
   padding: 0;
   margin: 0;
   background: url("./assets/initialPage/bkg.svg");
+  background-size: 125%;
 }
 
 nav {
@@ -59,6 +68,45 @@ nav {
 @import "https://cdn.jsdelivr.net/npm/@braks/vue-flow@0.4.40/dist/style.css";
 @import "https://cdn.jsdelivr.net/npm/@braks/vue-flow@0.4.40/dist/theme-default.css";
 
+:root {
+  --primary: #bb86fc;
+  --secondary: #03dac5;
+  --vp-c-brand: #10b981;
+  --vp-c-accent: #bb86fc;
+  --vp-c-bg-alt: rgb(249, 249, 249, 75%);
+}
+.vue-flow {
+  position: relative;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  overflow: hidden;
+}
+.vue-flow__node-input {
+  --vf-node-color: #0041d0;
+  --vf-handle: var(--vf-node-color);
+  --vf-box-shadow: var(--vf-node-color);
+  background: var(--vf-node-bg);
+  border-color: var(--vf-node-color);
+}
+.vue-flow__node-default,
+.vue-flow__node-input,
+.vue-flow__node-output {
+  padding: 10px;
+  border-radius: 3px;
+  width: 100px;
+  font-size: 20px;
+  height: 100px;
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  color: var(--vf-node-text);
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  background: var(--vf-node-bg);
+  border-color: var(--vf-node-color);
+}
+
 .vue-flow__minimap {
   transform: scale(75%);
   transform-origin: bottom right;
@@ -67,7 +115,7 @@ nav {
 .dndflow {
   flex-direction: column;
   display: flex;
-  height: 100%;
+  height: -webkit-fill-available;
 }
 .dndflow aside {
   color: #fff;
@@ -125,11 +173,16 @@ nav {
   height: fit-content;
   margin-left: 2em;
   margin-top: 1px;
+  cursor: default;
   color: white;
   .icon {
     border-radius: 100px;
     width: 60px;
     height: 60px;
+  }
+  &:hover {
+    filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
+    cursor: pointer;
   }
 }
 

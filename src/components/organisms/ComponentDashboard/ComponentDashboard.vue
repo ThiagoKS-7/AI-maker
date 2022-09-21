@@ -1,5 +1,12 @@
 <script setup>
-import { VueFlow, useVueFlow } from "@braks/vue-flow";
+import {
+  Background,
+  BackgroundVariant,
+  Controls,
+  MiniMap,
+  VueFlow,
+  useVueFlow,
+} from "@braks/vue-flow";
 import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
 
 let id = 0;
@@ -7,14 +14,9 @@ const getId = () => `dndnode_${id++}`;
 
 const { onConnect, nodes, edges, addEdges, addNodes, viewport, project } =
   useVueFlow({
-    nodes: [
-      {
-        id: "1",
-        type: "input",
-        label: "input node",
-        position: { x: 250, y: 25 },
-      },
-    ],
+    defaultZoom: 0.7,
+    maxZoom: 1.5,
+    minZoom: 0.5,
   });
 const onDragOver = (event) => {
   event.preventDefault();
@@ -33,14 +35,19 @@ const onDrop = (event) => {
     type,
     position,
     label: `${type} node`,
+    animated: true,
   };
   addNodes([newNode]);
 };
 </script>
 
 <template>
-  <div class="dndflow" @drop="onDrop">
-    <VueFlow @dragover="onDragOver" />
+  <div class="dndflow mask" @drop="onDrop">
+    <VueFlow @dragover="onDragOver" :auto-connect="connector">
+      <MiniMap />
+      <Controls />
+      <Background :variant="BackgroundVariant.Dots" />
+    </VueFlow>
     <Sidebar />
   </div>
 </template>
@@ -51,3 +58,12 @@ export default defineComponent({
   name: "ComponentDashboard",
 });
 </script>
+<style lang="scss" scoped>
+.mask {
+  background-color: #080b11;
+  opacity: 0.8;
+  aside {
+    opacity: 1;
+  }
+}
+</style>
