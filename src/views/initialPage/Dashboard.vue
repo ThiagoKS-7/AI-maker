@@ -1,14 +1,18 @@
 <template>
   <div class="dash-wrapper">
-    <h1>Dashboard</h1>
-    <button @click="back()">Voltar</button>
+    <ComponentDashboard />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import ComponentDashboard from "@/components/organisms/ComponentDashboard/ComponentDashboard.vue";
+
 export default defineComponent({
   name: "DashboardView",
+  components: {
+    ComponentDashboard,
+  },
   methods: {
     back() {
       return this.$router.push("/");

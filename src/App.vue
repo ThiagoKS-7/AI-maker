@@ -56,6 +56,68 @@ nav {
     }
   }
 }
+@import "https://cdn.jsdelivr.net/npm/@braks/vue-flow@0.4.40/dist/style.css";
+@import "https://cdn.jsdelivr.net/npm/@braks/vue-flow@0.4.40/dist/theme-default.css";
+
+.vue-flow__minimap {
+  transform: scale(75%);
+  transform-origin: bottom right;
+}
+
+.dndflow {
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+}
+.dndflow aside {
+  color: #fff;
+  font-weight: 700;
+  border-right: 1px solid #eee;
+  padding: 15px 10px;
+  font-size: 12px;
+  background: #355c7d; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #0a101a,
+    #0f203d,
+    rgb(65, 40, 87)
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #0a101a,
+    #0b1931,
+    rgb(47, 32, 61)
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.dndflow aside .nodes > * {
+  margin-bottom: 10px;
+  cursor: grab;
+  font-weight: 500;
+  -webkit-box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 10px 2px #00000040;
+}
+.dndflow aside .description {
+  margin-bottom: 10px;
+}
+.dndflow .vue-flow-wrapper {
+  flex-grow: 1;
+  height: 100%;
+}
+@media screen and (min-width: 640px) {
+  .dndflow {
+    flex-direction: row;
+  }
+  .dndflow aside {
+    min-width: 25%;
+  }
+}
+@media screen and (max-width: 639px) {
+  .dndflow aside .nodes {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+}
 .title_container {
   display: flex;
   justify-content: space-between;
