@@ -13,7 +13,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title_wrapper {
   color: white;
   display: flex;
