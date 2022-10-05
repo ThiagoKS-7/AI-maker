@@ -39,11 +39,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  height: 88vh;
+  color: white;
+  @media only screen and (max-width: 1869px) {
+    height: 82vh;
+  }
+  @media only screen and (min-width: 1870px) {
+    height: 88vh;
+  }
   background-color: transparent;
 }
-
+div {
+  color: white;
+}
 html,
 body {
   padding: 0;
@@ -81,32 +88,67 @@ nav {
   height: -webkit-fill-available;
   overflow: hidden;
 }
-.vue-flow__node-input {
-  --vf-node-color: #0041d0;
-  --vf-handle: var(--vf-node-color);
-  --vf-box-shadow: var(--vf-node-color);
-  background: var(--vf-node-bg);
-  border-color: var(--vf-node-color);
+.vue-flow__node-default {
+  border-color: cyan;
+  &:hover {
+    filter: drop-shadow(0 0 0.4em cyan);
+  }
 }
+.vue-flow__node-input {
+  border-color: rgb(7, 224, 7);
+  &:hover {
+    filter: drop-shadow(0 0 0.4em rgb(7, 224, 7));
+  }
+}
+.vue-flow__node-output {
+  border-color: red;
+  &:hover {
+    filter: drop-shadow(0 0 0.4em red);
+  }
+}
+
 .vue-flow__node-default,
 .vue-flow__node-input,
+.vue-flow__node-input.selected,
 .vue-flow__node-output {
-  padding: 10px;
-  border-radius: 3px;
+  border-radius: 8px;
   width: 100px;
   font-size: 20px;
+  margin: 0;
+  padding: 8px 6px;
   height: 100px;
   align-items: center;
+  color: white;
   display: flex;
+  justify-content: center;
   font-size: 20px;
   color: var(--vf-node-text);
   text-align: center;
   border-width: 1px;
   border-style: solid;
-  background: var(--vf-node-bg);
-  border-color: var(--vf-node-color);
+  background: linear-gradient(to right, #0f1e8b, #201394, #7161fe, #195be8);
+  border-color: #0041d0;
+  .table_margin {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: #081b44;
+    padding: 2px;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    display: flex;
+    justify-content: center;
+    .title {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+  .node_icon {
+    width: 60px;
+    height: 60px;
+  }
 }
-
 .vue-flow__minimap {
   transform: scale(75%);
   transform-origin: bottom right;
