@@ -23,7 +23,7 @@ export default {
       <h5 class="title">Table Data</h5>
     </div>
   </div>
-  <Handle id="a" type="source" :position="Position.Bottom" />
+  <Handle id="tD__handle-bottom" type="source" :position="Position.Bottom" />
 </template>
 <style lang="scss" scoped>
 .table_node {
