@@ -1,17 +1,15 @@
 <script setup>
+import TableNode from "@/components/atoms/TableNode/TableNode.vue";
 import {
   Background,
   BackgroundVariant,
-  Controls,
   MiniMap,
   VueFlow,
   useVueFlow,
 } from "@braks/vue-flow";
-import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
-import TableNode from "@/components/atoms/TableNode/TableNode.vue";
 import { markRaw } from "vue";
-let id = 0;
-const getId = (type) => `${type[0]}${id++}`;
+let id = -1;
+const getId = (type) => `${type[0]}${type[1]}${id++}`;
 
 const {
   onConnect,
@@ -26,15 +24,8 @@ const {
   defaultZoom: 0.7,
   maxZoom: 1.5,
   minZoom: 0.5,
-  elements: [
-    {
-      id: "1",
-      label: "CSV Table",
-      type: "tI",
-    },
-  ],
   nodeTypes: {
-    tI: markRaw(TableNode),
+    tD: markRaw(TableNode),
   },
 });
 const onDragOver = (event) => {
@@ -69,14 +60,69 @@ const onDrop = (event) => {
       <Controls />
       <Background :variant="BackgroundVariant.Dots" />
     </VueFlow>
-    <Sidebar :node="nodes" />
+    <Sidebar
+      :node="nodes"
+      :sidebarNodes="sidebarNodes"
+      @compile="compile()"
+      @removeOne="removeOne()"
+      @clearAll="clearAll()"
+    />
   </div>
 </template>
 <script>
 import { defineComponent } from "vue";
+import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
 
 export default defineComponent({
   name: "ComponentDashboard",
+  components: {
+    Sidebar,
+  },
+  data() {
+    return {
+      nodeList: [],
+    };
+  },
+  mounted() {
+    this.nodeList = this.nodes;
+  },
+  props: {
+    sidebarNodes: {
+      required: true,
+    },
+  },
+  methods: {
+    compile() {
+      this.compiler = "";
+      for (let i = 0; i < this.nodeList.length; i++) {
+        if (
+          this.nodeList[i].handleBounds.source == undefined &&
+          this.nodeList[i].handleBounds.target
+        ) {
+          if (this.compiler[this.compiler.length - 1] != "*") {
+            this.compiler += "*";
+          }
+        } else {
+          if (this.compiler[this.compiler.length - 1] != "*") {
+            this.compiler +=
+              this.nodeList[i].handleBounds.source[0].id.split("__")[0];
+          }
+        }
+      }
+      console.log(this.compiler);
+    },
+    removeOne() {
+      this.nodeList.pop();
+    },
+    clearAll() {
+      while (this.nodeList.length != 0) {
+        this.nodeList.pop();
+      }
+    },
+    back() {
+      return this.$router.push("/");
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>

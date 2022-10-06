@@ -1,48 +1,24 @@
 <template>
   <aside class="sidebar">
-    <div class="description">Exemplos de Nodes</div>
+    <div class="description">Nodes Disponíveis</div>
     <div class="nodes">
       <div
-        class="vue-flow__node-input"
+        v-for="item in sidebarNodes"
+        :key="item.id"
+        :class="item.class"
         :draggable="true"
-        @dragstart="onDragStart($event, 'input')"
+        @dragstart="onDragStart($event, item.type)"
       >
         <div class="table_margin">
-          <h5 class="title">Input Node</h5>
-        </div>
-      </div>
-      <div
-        class="vue-flow__node-input"
-        :draggable="true"
-        @dragstart="onDragStart($event, 'tI')"
-      >
-        <div class="table_margin">
-          <h5 class="title">Table Data (.csv/.xls)</h5>
-        </div>
-      </div>
-      <div
-        class="vue-flow__node-default"
-        :draggable="true"
-        @dragstart="onDragStart($event, 'default')"
-      >
-        <div class="table_margin">
-          <h5 class="title">Default Node</h5>
-        </div>
-      </div>
-      <div
-        class="vue-flow__node-output"
-        :draggable="true"
-        @dragstart="onDragStart($event, 'output')"
-      >
-        <div class="table_margin">
-          <h5 class="title">OutPut Node</h5>
+          <img v-if="item.img" class="node_icon" :src="item.img" />
+          <h5 class="title">{{ item.nome }}</h5>
         </div>
       </div>
     </div>
     <div class="button-footer">
-      <button @click="compile()">Run</button>
-      <button @click="removeOne()">Delete 1</button>
-      <button @click="clearAll()">Clear all</button>
+      <button @click="$emit('compile', $event)">Run</button>
+      <button @click="$emit('removeOne', $event)">Delete 1</button>
+      <button @click="$emit('clearAll', $event)">Clear all</button>
     </div>
   </aside>
 </template>
@@ -50,20 +26,11 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "SidebarTest",
-  data() {
-    return {
-      nodeList: [],
-      compiler: "",
-    };
-  },
+  name: "ComponentSidebar",
   props: {
-    node: {
-      required: false,
+    sidebarNodes: {
+      required: true,
     },
-  },
-  mounted() {
-    this.nodeList = this.node;
   },
   methods: {
     onDragStart(event, nodeType) {
@@ -72,40 +39,10 @@ export default defineComponent({
         event.dataTransfer.effectAllowed = "move";
       }
     },
-    compile() {
-      this.compiler = "";
-      for (let i = 0; i < this.nodeList.length; i++) {
-        if (
-          this.nodeList[i].handleBounds.source == undefined &&
-          this.nodeList[i].handleBounds.target
-        ) {
-          if (this.compiler[this.compiler.length - 1] != "*") {
-            this.compiler += "*";
-          }
-        } else {
-          if (this.compiler[this.compiler.length - 1] != "*") {
-            this.compiler +=
-              this.nodeList[i].handleBounds.source[0].id.split("__")[0];
-          }
-        }
-      }
-      console.log(this.compiler);
-    },
-    removeOne() {
-      this.nodeList.pop();
-    },
-    clearAll() {
-      while (this.nodeList.length != 0) {
-        this.nodeList.pop();
-      }
-    },
   },
 });
 </script>
 <style lang="scss" scoped>
-.sidebar {
-  width: 30%;
-}
 .description {
   font-size: 25px;
 }
