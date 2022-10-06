@@ -1,29 +1,20 @@
 <template>
   <aside class="sidebar">
-    <div class="description">Nodes Disponíveis</div>
-    <div class="nodes">
-      <div
-        v-for="item in sidebarNodes"
-        :key="item.id"
-        :class="item.class"
-        :draggable="true"
-        @dragstart="onDragStart($event, item.type)"
-      >
-        <div class="table_margin">
-          <img v-if="item.img" class="node_icon" :src="item.img" />
-          <h5 class="title">{{ item.nome }}</h5>
-        </div>
-      </div>
+    <div class="button-header">
+      <Button @click="$emit('compile', $event)" class="success"> Run </Button>
+      <Button @click="$emit('removeOne', $event)"> Delete 1 </Button>
+      <Button @click="$emit('clearAll', $event)" class="danger">
+        Clear all
+      </Button>
     </div>
-    <div class="button-footer">
-      <button @click="$emit('compile', $event)">Run</button>
-      <button @click="$emit('removeOne', $event)">Delete 1</button>
-      <button @click="$emit('clearAll', $event)">Clear all</button>
-    </div>
+    <h3 class="description">Nodes Disponíveis</h3>
+    <NodeList :sidebarNodes="sidebarNodes" />
   </aside>
 </template>
 <script>
 import { defineComponent } from "vue";
+import NodeList from "@/components/organisms/NodeList/NodeList.vue";
+import Button from "@/components/atoms/DefaultButton/DefaultButton.vue";
 
 export default defineComponent({
   name: "ComponentSidebar",
@@ -32,13 +23,9 @@ export default defineComponent({
       required: true,
     },
   },
-  methods: {
-    onDragStart(event, nodeType) {
-      if (event.dataTransfer) {
-        event.dataTransfer.setData("application/vueflow", nodeType);
-        event.dataTransfer.effectAllowed = "move";
-      }
-    },
+  components: {
+    NodeList,
+    Button,
   },
 });
 </script>
@@ -51,8 +38,9 @@ export default defineComponent({
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-.button-footer {
+.button-header {
   display: flex;
   justify-content: space-evenly;
+  margin: 0px 5px;
 }
 </style>
