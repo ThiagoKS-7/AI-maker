@@ -162,7 +162,7 @@ nav {
 .dndflow aside {
   color: #fff;
   font-weight: 700;
-  border-right: 1px solid #eee;
+  max-width: 250px;
   padding: 15px 10px;
   font-size: 12px;
   background: #355c7d; /* fallback for old browsers */
@@ -198,7 +198,7 @@ nav {
     flex-direction: row;
   }
   .dndflow aside {
-    min-width: 25%;
+    min-width: 15%;
   }
 }
 @media screen and (max-width: 639px) {
