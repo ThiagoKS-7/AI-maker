@@ -43,9 +43,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.sidebar {
-  width: 20%;
-}
 .description {
   font-size: 25px;
 }
@@ -53,7 +50,6 @@ export default defineComponent({
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 87%;
 }
 .button-footer {
   display: flex;
