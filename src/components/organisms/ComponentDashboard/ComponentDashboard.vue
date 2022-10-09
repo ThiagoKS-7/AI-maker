@@ -1,5 +1,6 @@
 <script setup>
 import TableNode from "@/components/atoms/TableNode/TableNode.vue";
+import FileNode from "@/components/atoms/FileNode/FileNode.vue";
 import {
   Background,
   BackgroundVariant,
@@ -8,7 +9,7 @@ import {
   useVueFlow,
 } from "@braks/vue-flow";
 import { markRaw } from "vue";
-let id = -1;
+let id = 0;
 const getId = (type) => `${type[0]}${type[1]}${id++}`;
 
 const {
@@ -26,6 +27,7 @@ const {
   minZoom: 0.5,
   nodeTypes: {
     tD: markRaw(TableNode),
+    fD: markRaw(FileNode),
   },
 });
 const onDragOver = (event) => {
@@ -49,6 +51,7 @@ const onDrop = (event) => {
     position,
     label: `${type} node`,
   };
+  console.log(newNode);
   addNodes([newNode]);
 };
 </script>
@@ -92,24 +95,27 @@ export default defineComponent({
     },
   },
   methods: {
+    checkNodeType(i) {
+      if (
+        this.nodeList[i].handleBounds.source == undefined &&
+        this.nodeList[i].handleBounds.target
+      ) {
+        if (this.compiler[this.compiler.length - 1] != "*") {
+          this.compiler += "*";
+        }
+      } else {
+        if (this.compiler[this.compiler.length - 1] != "*") {
+          this.compiler +=
+            this.nodeList[i].handleBounds.source[0].id.split("__")[0];
+        }
+      }
+    },
     compile() {
       this.compiler = "";
       for (let i = 0; i < this.nodeList.length; i++) {
-        if (
-          this.nodeList[i].handleBounds.source == undefined &&
-          this.nodeList[i].handleBounds.target
-        ) {
-          if (this.compiler[this.compiler.length - 1] != "*") {
-            this.compiler += "*";
-          }
-        } else {
-          if (this.compiler[this.compiler.length - 1] != "*") {
-            this.compiler +=
-              this.nodeList[i].handleBounds.source[0].id.split("__")[0];
-          }
-        }
+        this.checkNodeType(i);
       }
-      console.log(this.compiler);
+      console.log(this.compiler, document.getElementById("filepicker"));
     },
     removeOne() {
       this.nodeList.pop();
