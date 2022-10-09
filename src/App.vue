@@ -178,6 +178,9 @@ nav {
     #0b1931,
     rgb(47, 32, 61)
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  @media screen and (min-width: 2px) and (max-width: 639px) {
+    max-width: 95%;
+  }
 }
 .dndflow aside .nodes > * {
   margin-bottom: 10px;
