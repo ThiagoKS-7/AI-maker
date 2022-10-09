@@ -24,8 +24,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src/plugins/api.js",
-    "src/plugins/api.js"
-  ],
+    "src/plugins/api.ts",
+    "src/plugins/api.ts"
+, "src/main.js"  ],
   "exclude": ["node_modules"]
 }

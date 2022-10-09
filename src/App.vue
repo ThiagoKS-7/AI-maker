@@ -115,7 +115,7 @@ nav {
   width: 100px;
   font-size: 20px;
   margin: 0;
-  padding: 8px 6px;
+  padding: 3px;
   height: 100px;
   align-items: center;
   color: white;
@@ -140,13 +140,13 @@ nav {
     display: flex;
     justify-content: center;
     .title {
-      font-size: 14px;
+      font-size: 11px;
       margin: 0;
     }
   }
   .node_icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 }
 .vue-flow__minimap {
@@ -190,7 +190,7 @@ nav {
   box-shadow: 5px 5px 10px 2px #00000040;
 }
 .dndflow aside .description {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 .dndflow .vue-flow-wrapper {
   flex-grow: 1;
