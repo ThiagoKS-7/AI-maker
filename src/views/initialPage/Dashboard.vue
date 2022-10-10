@@ -9,6 +9,7 @@ import { defineComponent } from "vue";
 import ComponentDashboard from "@/components/organisms/ComponentDashboard/ComponentDashboard.vue";
 import TableIcon from "@/assets/dashboard/tableNode.svg";
 import FileIcon from "@/assets/dashboard/fileNode.svg";
+import OdIcon from "@/assets/dashboard/odNode.svg";
 
 export default defineComponent({
   name: "DashboardView",
@@ -56,6 +57,13 @@ export default defineComponent({
         },
         {
           id: 4,
+          nome: "YOLOv3 Obj Detection",
+          type: "oD",
+          img: OdIcon,
+          class: "vue-flow__node-default",
+        },
+        {
+          id: 5,
           nome: "Output Node",
           type: "output",
           img: null,
