@@ -1,6 +1,7 @@
 <script setup>
 import TableNode from "@/components/atoms/TableNode/TableNode.vue";
 import FileNode from "@/components/atoms/FileNode/FileNode.vue";
+import ObjDetectionNode from "@/components/atoms/ObjDetectionNode/ObjDetectionNode.vue";
 import {
   Background,
   BackgroundVariant,
@@ -28,6 +29,7 @@ const {
   nodeTypes: {
     tD: markRaw(TableNode),
     fD: markRaw(FileNode),
+    oD: markRaw(ObjDetectionNode),
   },
 });
 const onDragOver = (event) => {
@@ -43,7 +45,6 @@ onConnect((params) => {
 
 const onDrop = (event) => {
   const type = event.dataTransfer?.getData("application/vueflow");
-  console.log(type);
   const position = project({ x: event.clientX - 40, y: event.clientY - 18 });
   const newNode = {
     id: getId(type),
@@ -51,7 +52,6 @@ const onDrop = (event) => {
     position,
     label: `${type} node`,
   };
-  console.log(newNode);
   addNodes([newNode]);
 };
 </script>
@@ -75,6 +75,7 @@ const onDrop = (event) => {
 <script>
 import { defineComponent } from "vue";
 import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
+import { useStore } from "@/store";
 
 export default defineComponent({
   name: "ComponentDashboard",
@@ -84,7 +85,11 @@ export default defineComponent({
   data() {
     return {
       nodeList: [],
+      store: "",
     };
+  },
+  created() {
+    this.store = useStore();
   },
   mounted() {
     this.nodeList = this.nodes;
@@ -115,7 +120,7 @@ export default defineComponent({
       for (let i = 0; i < this.nodeList.length; i++) {
         this.checkNodeType(i);
       }
-      console.log(this.compiler, document.getElementById("filepicker"));
+      console.log(this.compiler);
     },
     removeOne() {
       this.nodeList.pop();

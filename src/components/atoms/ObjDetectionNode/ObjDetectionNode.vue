@@ -7,7 +7,7 @@ import { defineComponent } from "vue";
 import { useStore } from "@/store";
 
 export default defineComponent({
-  name: "FileNode",
+  name: "ObjectDetectionNode",
   inheritAttrs: false,
   data() {
     return {
@@ -43,23 +43,14 @@ export default defineComponent({
 });
 </script>
 <template>
+  <Handle id="oD__handle-top" type="source" :position="Position.Top" />
   <div class="table_node">
     <div class="table_margin">
-      <input
-        v-if="!imageData"
-        type="file"
-        id="filepicker"
-        ref="myFiles"
-        accept="image/*"
-        class="custom-file-input"
-        @change="previewFile()"
-      />
-      <img class="img_preview" v-if="imageData" :src="imageData" />
-      <h5 class="title" v-if="!files">File Data</h5>
-      <h5 class="title" v-else>{{ files[0]?.name }}</h5>
+      <img class="img_preview" src="@/assets/dashboard/ai-load.gif" />
+      <h5 class="title">YOLOv3 Obj-Det</h5>
     </div>
   </div>
-  <Handle id="fD__handle-bottom" type="source" :position="Position.Bottom" />
+  <Handle id="oD__handle-bottom" type="source" :position="Position.Bottom" />
 </template>
 <style lang="scss" scoped>
 .table_node {
@@ -98,8 +89,8 @@ export default defineComponent({
     }
   }
   .node_icon {
-    width: 60px;
-    height: 60px;
+    width: 99px;
+    height: 65px;
   }
   &:hover {
     filter: drop-shadow(0 0 0.4em rgb(7, 224, 7));
