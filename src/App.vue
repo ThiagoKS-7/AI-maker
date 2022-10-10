@@ -145,8 +145,8 @@ nav {
     }
   }
   .node_icon {
-    width: 50px;
-    height: 50px;
+    width: 99px;
+    height: 65px;
   }
 }
 .vue-flow__minimap {

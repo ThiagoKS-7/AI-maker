@@ -1,11 +1,5 @@
 <script lang="ts" setup>
-import { Handle, Position, Connection, Edge } from "@braks/vue-flow";
-
-const onConnect = (params: Connection | Edge) =>
-  console.log("handle onConnect", params);
-const onClick = () => {
-  console.log("onClick icon");
-};
+import { Handle, Position } from "@braks/vue-flow";
 </script>
 <script lang="ts">
 export default {
