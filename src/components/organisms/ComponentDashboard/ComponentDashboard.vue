@@ -2,6 +2,7 @@
 import TableNode from "@/components/atoms/TableNode/TableNode.vue";
 import FileNode from "@/components/atoms/FileNode/FileNode.vue";
 import ObjDetectionNode from "@/components/atoms/ObjDetectionNode/ObjDetectionNode.vue";
+import DefaultOutputNode from "@/components/atoms/DefaultOutputNode/DefaultOutputNode.vue";
 import {
   Background,
   BackgroundVariant,
@@ -12,17 +13,7 @@ import {
 import { markRaw } from "vue";
 let id = 0;
 const getId = (type) => `${type[0]}${type[1]}${id++}`;
-
-const {
-  onConnect,
-  nodes,
-  edges,
-  addEdges,
-  addNodes,
-  viewport,
-  project,
-  nodeTypes,
-} = useVueFlow({
+const { onConnect, nodes, addEdges, addNodes, project } = useVueFlow({
   defaultZoom: 0.7,
   maxZoom: 1.5,
   minZoom: 0.5,
@@ -30,6 +21,7 @@ const {
     tD: markRaw(TableNode),
     fD: markRaw(FileNode),
     oD: markRaw(ObjDetectionNode),
+    oN: markRaw(DefaultOutputNode),
   },
 });
 const onDragOver = (event) => {
@@ -40,7 +32,13 @@ const onDragOver = (event) => {
 };
 
 onConnect((params) => {
-  addEdges([{ ...params, animated: true, style: { stroke: "cyan" } }]);
+  addEdges([
+    {
+      ...params,
+      animated: true,
+      style: { stroke: "cyan" },
+    },
+  ]);
 });
 
 const onDrop = (event) => {
@@ -117,10 +115,12 @@ export default defineComponent({
     },
     compile() {
       this.compiler = "";
+      this.store.commit("setReady", true);
       for (let i = 0; i < this.nodeList.length; i++) {
         this.checkNodeType(i);
       }
       console.log(this.compiler);
+      // this.store.commit("setAnimation", false);
     },
     removeOne() {
       this.nodeList.pop();

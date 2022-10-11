@@ -9,44 +9,52 @@ import { useStore } from "@/store";
 export default defineComponent({
   name: "ObjectDetectionNode",
   inheritAttrs: false,
-  data() {
-    return {
-      imageData: "",
-      store: "",
-    };
-  },
   created() {
     this.store = useStore();
   },
-  methods: {
-    async previewFile() {
-      this.store.commit("setFiles", this.$refs.myFiles.files);
-      if (this.store.getters.getFiles && this.store.getters.getFiles[0]) {
-        const reader = new FileReader();
-        const formData = this.store.getters.getFormData;
-        this.store.commit("formAppend", this.store.getters.getFiles[0]);
-        console.log("FORMDATA: ", ...formData.values());
-        reader.onload = (e) => {
-          this.imageData = e.target.result;
-        };
-        reader.readAsDataURL(this.store.getters.getFiles[0]);
-        // axios
-        //   .post(`${process.env.VUE_APP_API_HOST}/image`, formData, {
-        //     "Content-Type": "multipart/form-data",
-        //     "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
-        //   })
-        //   .then((response) => console.log(response))
-        //   .catch((err) => console.log(err));
-      }
-    },
+  mounted() {
+    this.store.commit("setApiUrl", "/images");
+    console.log(this.store.getters.getApiUrl);
   },
 });
 </script>
 <template>
-  <Handle id="oD__handle-top" type="source" :position="Position.Top" />
   <div class="table_node">
+    <Handle id="oD__handle-top" type="source" :position="Position.Top" />
     <div class="table_margin">
-      <img class="img_preview" src="@/assets/dashboard/ai-load.gif" />
+      <section class="img_preview">
+        <div class="loader"></div>
+        <svg
+          viewBox="0 0 800 500"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="100%"
+          id="blobSvg"
+        >
+          <g transform="translate(151.4918975830078, 6.876411437988281)">
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color: #00d8fe"></stop>
+                <stop offset="100%" style="stop-color: #7161fe"></stop>
+              </linearGradient>
+            </defs>
+            <path fill="url(#gradient)">
+              <animate
+                attributeName="d"
+                dur="2500ms"
+                repeatCount="indefinite"
+                values="
+                    M473,291.5Q450,333,437.5,379Q425,425,383,447Q341,469,295.5,480.5Q250,492,203,484.5Q156,477,119.5,447Q83,417,64.5,376Q46,335,46,292.5Q46,250,35.5,203.5Q25,157,51,117Q77,77,116,48.5Q155,20,202.5,19Q250,18,289,40.5Q328,63,372.5,73Q417,83,443.5,121Q470,159,483,204.5Q496,250,473,291.5Z;
+                    M462.5,296Q472,342,439,374Q406,406,371.5,432.5Q337,459,293.5,469.5Q250,480,204.5,475Q159,470,119.5,445Q80,420,53,381.5Q26,343,15,296.5Q4,250,16.5,204Q29,158,58.5,123Q88,88,121,53.5Q154,19,202,31.5Q250,44,295,39Q340,34,367,70Q394,106,420.5,137.5Q447,169,450,209.5Q453,250,462.5,296Z;
+                    M481.5,296Q473,342,443,377.5Q413,413,377.5,443Q342,473,296,469Q250,465,208,459Q166,453,132,427.5Q98,402,61,373Q24,344,16.5,297Q9,250,17,203.5Q25,157,61.5,127.5Q98,98,126.5,60Q155,22,202.5,15Q250,8,293.5,24Q337,40,377,61.5Q417,83,446.5,119.5Q476,156,483,203Q490,250,481.5,296Z;
+                    M473,291.5Q450,333,437.5,379Q425,425,383,447Q341,469,295.5,480.5Q250,492,203,484.5Q156,477,119.5,447Q83,417,64.5,376Q46,335,46,292.5Q46,250,35.5,203.5Q25,157,51,117Q77,77,116,48.5Q155,20,202.5,19Q250,18,289,40.5Q328,63,372.5,73Q417,83,443.5,121Q470,159,483,204.5Q496,250,473,291.5Z;
+                  "
+              ></animate>
+            </path>
+          </g>
+        </svg>
+      </section>
       <h5 class="title">YOLOv3 Obj-Det</h5>
     </div>
   </div>
@@ -86,14 +94,44 @@ export default defineComponent({
     .img_preview {
       max-width: 65px;
       margin-bottom: 5px;
+      filter: drop-shadow(0 0 0.4em #fe00f2);
+      position: relative;
     }
   }
   .node_icon {
     width: 99px;
     height: 65px;
   }
+  .loader {
+    position: absolute;
+    top: 20%;
+    left: 33%;
+    opacity: 0.7;
+    border: 4px solid #eecda3;
+    border-top: 4px solid #fe00f2;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 0.4em cyan);
+    width: 12px;
+    height: 12px;
+    animation: spin 4.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    59% {
+      transform: rotate(270deg);
+    }
+    75% {
+      transform: rotate(90deg);
+    }
+    75% {
+      transform: rotate(360deg);
+    }
+  }
   &:hover {
-    filter: drop-shadow(0 0 0.4em rgb(7, 224, 7));
+    filter: drop-shadow(0 0 0.4em cyan);
   }
 }
 </style>
