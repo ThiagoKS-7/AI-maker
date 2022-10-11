@@ -4,6 +4,8 @@ import { createStore, useStore as baseUseStore, Store } from "vuex";
 export interface State {
   files: object;
   formData: FormData;
+  apiUrl: string;
+  ready: boolean;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -12,6 +14,8 @@ export const store = createStore<State>({
   state: {
     files: {},
     formData: new FormData(),
+    apiUrl: "",
+    ready: false,
   },
   getters: {
     getFiles: (state) => {
@@ -20,6 +24,12 @@ export const store = createStore<State>({
     getFormData: (state) => {
       return state.formData;
     },
+    getApiUrl: (state) => {
+      return state.apiUrl;
+    },
+    isReady: (state) => {
+      return state.ready;
+    },
   },
   mutations: {
     setFiles(state, value) {
@@ -27,6 +37,12 @@ export const store = createStore<State>({
     },
     formAppend(state, value) {
       state.formData.append("images", value);
+    },
+    setApiUrl(state, value) {
+      state.apiUrl = value;
+    },
+    setReady(state, value) {
+      state.ready = value;
     },
   },
 });

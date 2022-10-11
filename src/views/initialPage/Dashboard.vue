@@ -10,6 +10,7 @@ import ComponentDashboard from "@/components/organisms/ComponentDashboard/Compon
 import TableIcon from "@/assets/dashboard/tableNode.svg";
 import FileIcon from "@/assets/dashboard/fileNode.svg";
 import OdIcon from "@/assets/dashboard/odNode.svg";
+import OutIcon from "@/assets/dashboard/outNode.svg";
 
 export default defineComponent({
   name: "DashboardView",
@@ -65,8 +66,8 @@ export default defineComponent({
         {
           id: 5,
           nome: "Output Node",
-          type: "output",
-          img: null,
+          type: "oN",
+          img: OutIcon,
           class: "vue-flow__node-output",
         },
       ];
