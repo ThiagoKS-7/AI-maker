@@ -30,13 +30,6 @@ export default defineComponent({
           this.imageData = e.target.result;
         };
         reader.readAsDataURL(this.store.getters.getFiles[0]);
-        // axios
-        //   .post(`${process.env.VUE_APP_API_HOST}/image`, formData, {
-        //     "Content-Type": "multipart/form-data",
-        //     "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
-        //   })
-        //   .then((response) => console.log(response))
-        //   .catch((err) => console.log(err));
       }
     },
   },
@@ -55,8 +48,8 @@ export default defineComponent({
         @change="previewFile()"
       />
       <img class="img_preview" v-if="imageData" :src="imageData" />
-      <h5 class="title" v-if="!files">File Data</h5>
-      <h5 class="title" v-else>{{ files[0]?.name }}</h5>
+      <h5 class="title" v-if="!store.getters.getFiles">File Data</h5>
+      <h5 class="title" v-else>{{ this.store.getters.getFiles[0]?.name }}</h5>
     </div>
   </div>
   <Handle id="fD__handle-bottom" type="source" :position="Position.Bottom" />

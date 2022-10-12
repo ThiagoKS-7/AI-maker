@@ -13,8 +13,7 @@ export default defineComponent({
     this.store = useStore();
   },
   mounted() {
-    this.store.commit("setApiUrl", "/images");
-    console.log(this.store.getters.getApiUrl);
+    this.store.commit("setApiUrl", "/image");
   },
 });
 </script>
@@ -101,6 +100,12 @@ export default defineComponent({
   .node_icon {
     width: 99px;
     height: 65px;
+    cursor: grab;
+    &:hover {
+      width: 99px;
+      height: 65px;
+      cursor: pointer;
+    }
   }
   .loader {
     position: absolute;
