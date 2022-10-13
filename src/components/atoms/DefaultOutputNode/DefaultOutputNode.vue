@@ -29,26 +29,28 @@ export default defineComponent({
     },
     async run() {
       if (this.store.getters.isReady) {
-        axios
+        await axios
           .post(
             `${process.env.VUE_APP_API_HOST}${this.store.getters.getApiUrl}`,
             this.store.getters.getFormData,
             {
+              "Response-Type": "blob",
               "Content-Type": "multipart/form-data",
               "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
             }
           )
           .then((response) => {
-            let blob = new Blob([response.data], { type: "text/plain" });
-            console.log(blob);
-            let img = URL.createObjectURL(blob);
-            this.imageData = img;
-            // //this.changeStroke("lime");
+            console.log(JSON.stringify(response.data));
+            this.imageData = "data:image.png;base64," + response.data;
           })
           .catch((err) => {
             console.error(err);
-            this.changeStroke("red");
           });
+        if (this.imageData.length > 1) {
+          this.changeStroke("green");
+        } else {
+          this.changeStroke("red");
+        }
       }
     },
   },
@@ -64,7 +66,7 @@ export default defineComponent({
         src="@/assets/dashboard/outNode.svg"
         @click="run()"
       />
-      <img v-else class="node_icon" :src="imageData" @click="run()" />
+      <img v-else class="preview" :src="imageData" @click="run()" />
       <h5 class="title">Output</h5>
     </div>
   </div>
@@ -109,6 +111,14 @@ export default defineComponent({
       cursor: pointer;
       width: 65px;
       height: 65px;
+    }
+  }
+  .preview {
+    width: 80px;
+    height: 60px;
+    cursor: grab;
+    &:hover {
+      cursor: pointer;
     }
   }
   &:hover {
