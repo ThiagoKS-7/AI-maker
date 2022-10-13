@@ -9,12 +9,11 @@ import {
   MiniMap,
   VueFlow,
   useVueFlow,
-  updateEdge,
 } from "@braks/vue-flow";
 import { markRaw } from "vue";
 let id = 0;
 const getId = (type) => `${type[0]}${type[1]}${id++}`;
-const { onConnect, nodes, addEdges, addNodes, project } = useVueFlow({
+const { onConnect, addEdges, addNodes, project } = useVueFlow({
   defaultZoom: 0.9,
   maxZoom: 1.4,
   minZoom: 0.6,
