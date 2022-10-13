@@ -3,7 +3,6 @@ import { Handle, Position } from "@braks/vue-flow";
 </script>
 <script>
 import { defineComponent } from "vue";
-// import axios from "axios";
 import { useStore } from "@/store";
 
 export default defineComponent({
@@ -23,9 +22,7 @@ export default defineComponent({
       this.store.commit("setFiles", this.$refs.myFiles.files);
       if (this.store.getters.getFiles && this.store.getters.getFiles[0]) {
         const reader = new FileReader();
-        const formData = this.store.getters.getFormData;
         this.store.commit("formAppend", this.store.getters.getFiles[0]);
-        console.log("FORMDATA: ", ...formData.values());
         reader.onload = (e) => {
           this.imageData = e.target.result;
         };
