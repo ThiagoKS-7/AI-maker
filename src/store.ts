@@ -6,6 +6,9 @@ export interface State {
   formData: FormData;
   apiUrl: string;
   ready: boolean;
+  exceptions: number;
+  nodeList: Array<object>;
+  connections: string;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -16,6 +19,9 @@ export const store = createStore<State>({
     formData: new FormData(),
     apiUrl: "",
     ready: false,
+    exceptions: 0,
+    nodeList: [],
+    connections: "",
   },
   getters: {
     getFiles: (state) => {
@@ -30,6 +36,15 @@ export const store = createStore<State>({
     isReady: (state) => {
       return state.ready;
     },
+    getExceptions: (state) => {
+      return state.exceptions;
+    },
+    getNodeList: (state) => {
+      return state.nodeList;
+    },
+    getConnections: (state) => {
+      return state.connections;
+    },
   },
   mutations: {
     setFiles(state, value) {
@@ -43,6 +58,29 @@ export const store = createStore<State>({
     },
     setReady(state, value) {
       state.ready = value;
+    },
+    increaseException(state) {
+      state.exceptions++;
+    },
+    clearException(state) {
+      state.exceptions = 0;
+    },
+    removeOne(state) {
+      state.nodeList.pop();
+    },
+    clearNodeList(state) {
+      while (state.nodeList.length != 0) {
+        state.nodeList.pop();
+      }
+    },
+    setNodeList(state, value) {
+      state.nodeList = value;
+    },
+    pushConnection(state, value) {
+      state.connections += value;
+    },
+    clearConnections(state) {
+      state.connections = "";
     },
   },
 });

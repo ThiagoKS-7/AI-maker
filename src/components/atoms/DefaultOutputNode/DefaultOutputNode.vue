@@ -12,14 +12,22 @@ export default defineComponent({
   data() {
     return {
       store: "",
+      imageData: "",
     };
   },
   created() {
     this.store = useStore();
   },
   methods: {
-    async previewFile() {
-      this.store.commit("setFiles", this.$refs.myFiles.files);
+    changeStroke(color) {
+      const cons = document.getElementsByClassName("vue-flow__edge-path");
+      for (let i = 0; i < this.store.getters.getNodeList.length; i++) {
+        cons[
+          i
+        ].style.cssText = `stroke: ${color}; stroke-width:6px;filter: drop-shadow(0 0 0.4em ${color});`;
+      }
+    },
+    async run() {
       if (this.store.getters.isReady) {
         axios
           .post(
@@ -30,8 +38,17 @@ export default defineComponent({
               "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
             }
           )
-          .then((response) => console.log(response))
-          .catch((err) => console.log(err));
+          .then((response) => {
+            let blob = new Blob([response.data], { type: "text/plain" });
+            console.log(blob);
+            let img = URL.createObjectURL(blob);
+            this.imageData = img;
+            // //this.changeStroke("lime");
+          })
+          .catch((err) => {
+            console.error(err);
+            this.changeStroke("red");
+          });
       }
     },
   },
@@ -41,7 +58,13 @@ export default defineComponent({
   <div class="table_node">
     <Handle id="oN__handle-top" type="target" :position="Position.Top" />
     <div class="table_margin">
-      <img class="node_icon" src="@/assets/dashboard/outNode.svg" />
+      <img
+        v-if="!imageData"
+        class="node_icon"
+        src="@/assets/dashboard/outNode.svg"
+        @click="run()"
+      />
+      <img v-else class="node_icon" :src="imageData" @click="run()" />
       <h5 class="title">Output</h5>
     </div>
   </div>
@@ -77,14 +100,16 @@ export default defineComponent({
       font-size: 14px;
       margin: 0;
     }
-    .img_preview {
-      max-width: 65px;
-      margin-bottom: 5px;
-    }
   }
   .node_icon {
     width: 60px;
     height: 60px;
+    cursor: grab;
+    &:hover {
+      cursor: pointer;
+      width: 65px;
+      height: 65px;
+    }
   }
   &:hover {
     filter: drop-shadow(0 0 0.4em red);
