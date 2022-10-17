@@ -13,7 +13,7 @@ import {
 import { markRaw } from "vue";
 let id = 0;
 const getId = (type) => `${type[0]}${type[1]}${id++}`;
-const { onConnect, addEdges, addNodes, project } = useVueFlow({
+const { onConnect, addEdges, nodes, addNodes, project } = useVueFlow({
   defaultZoom: 0.9,
   maxZoom: 1.4,
   minZoom: 0.6,
@@ -69,9 +69,9 @@ const onDrop = (event) => {
     </VueFlow>
     <Sidebar
       :sidebarNodes="sidebarNodes"
-      @compile="compile()"
-      @removeOne="removeOne()"
-      @clearAll="clearAll()"
+      @compile="$emit('compile', $event)"
+      @removeOne="$emit('removeOne', $event)"
+      @clearAll="$emit('clearAll', $event)"
     />
   </div>
 </template>
@@ -88,11 +88,6 @@ export default defineComponent({
   data() {
     return {
       store: "",
-      message: "",
-      form: {
-        nodeList: [],
-        cons: "",
-      },
     };
   },
   created() {
@@ -100,88 +95,10 @@ export default defineComponent({
   },
   mounted() {
     this.store.commit("setNodeList", this.nodes);
-    this.getData();
   },
   props: {
     sidebarNodes: {
       required: true,
-    },
-  },
-  methods: {
-    getData() {
-      this.form.nodeList = this.store.getters.getNodeList;
-      this.form.cons = document.getElementsByClassName("vue-flow__edge-path");
-    },
-    checkNodeType(i) {
-      const noOutput = this.compiler[this.compiler.length - 1] != "*";
-      if (
-        this.form.nodeList[i].handleBounds.source == undefined &&
-        this.form.nodeList[i].handleBounds.target
-      ) {
-        if (noOutput) {
-          this.compiler += "*";
-        }
-      } else {
-        if (noOutput) {
-          this.compiler +=
-            this.form.nodeList[i].handleBounds.source[0].id.split("__")[0];
-        }
-      }
-    },
-    checkExceptions() {
-      const noOutput = this.compiler[this.compiler.length - 1] != "*";
-      const missingConnection =
-        this.store.getters.getConnections.length / 3 ===
-          this.form.nodeList.length - 1 &&
-        this.store.getters.getConnections.length / 3 == 2 &&
-        this.form.nodeList.length < 3;
-      if (noOutput) {
-        this.store.commit("increaseException");
-        this.message = "É obrigatório usar uma output!";
-        console.log(this.message);
-      } else if (missingConnection) {
-        this.store.commit("increaseException");
-        this.message = "É obrigatório conectar todas as nodes no flow! 1";
-        console.log(this.message);
-      } else {
-        this.store.commit("clearException");
-      }
-    },
-    changeStroke(color) {
-      for (let i = 0; i <= this.form.nodeList.length; i++) {
-        this.form.cons[
-          i
-        ].style.cssText = `stroke: ${color}; stroke-width:6px;filter: drop-shadow(0 0 0.4em ${color});`;
-      }
-    },
-    validateCompilation() {
-      for (let i = 0; i < this.form.nodeList.length; i++) {
-        this.checkNodeType(i);
-      }
-      this.checkExceptions();
-      if (this.store.getters.getExceptions == 0) {
-        this.store.commit("setReady", true);
-        this.changeStroke("lime");
-      } else {
-        this.store.commit("setReady", false);
-        this.changeStroke("red");
-      }
-    },
-    compile() {
-      this.compiler = "";
-      this.store.commit("clearException");
-      this.validateCompilation();
-    },
-    removeOne() {
-      this.store.commit("removeOne");
-    },
-    clearAll() {
-      this.store.commit("clearNodeList");
-      this.store.commit("clearException");
-      this.store.commit("clearConnections");
-    },
-    back() {
-      return this.$router.push("/");
     },
   },
 });

@@ -9,6 +9,7 @@ export interface State {
   exceptions: number;
   nodeList: Array<object>;
   connections: string;
+  loader: boolean;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -22,6 +23,7 @@ export const store = createStore<State>({
     exceptions: 0,
     nodeList: [],
     connections: "",
+    loader: false,
   },
   getters: {
     getFiles: (state) => {
@@ -44,6 +46,9 @@ export const store = createStore<State>({
     },
     getConnections: (state) => {
       return state.connections;
+    },
+    getLoader: (state) => {
+      return state.loader;
     },
   },
   mutations: {
@@ -81,6 +86,9 @@ export const store = createStore<State>({
     },
     clearConnections(state) {
       state.connections = "";
+    },
+    updateLoader(state, value) {
+      state.loader = value;
     },
   },
 });

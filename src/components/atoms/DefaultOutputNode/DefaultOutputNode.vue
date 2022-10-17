@@ -5,6 +5,7 @@ import { Handle, Position } from "@braks/vue-flow";
 import { defineComponent } from "vue";
 import axios from "axios";
 import { useStore } from "@/store";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "DefaultOutputNode",
@@ -18,6 +19,9 @@ export default defineComponent({
   created() {
     this.store = useStore();
   },
+  computed: mapState({
+    loader: (state) => state.loader,
+  }),
   methods: {
     changeStroke(color) {
       const cons = document.getElementsByClassName("vue-flow__edge-path");
@@ -28,28 +32,34 @@ export default defineComponent({
       }
     },
     async run() {
-      if (this.store.getters.isReady) {
-        await axios
-          .post(
-            `${process.env.VUE_APP_API_HOST}${this.store.getters.getApiUrl}`,
-            this.store.getters.getFormData,
-            {
-              "Response-Type": "blob",
-              "Content-Type": "multipart/form-data",
-              "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
-            }
-          )
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            this.imageData = "data:image.png;base64," + response.data;
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-        if (this.imageData.length > 1) {
+      if (this.store.getters.isReady && this.store.getters.getFormData) {
+        try {
+          this.store.commit("updateLoader", true);
+          await axios
+            .post(
+              `${process.env.VUE_APP_API_HOST}${this.store.getters.getApiUrl}`,
+              this.store.getters.getFormData,
+              {
+                "Response-Type": "blob",
+                "Content-Type": "multipart/form-data",
+                "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
+              }
+            )
+            .then((response) => {
+              this.imageData = "data:image.png;base64," + response.data;
+            })
+            .catch((err) => {
+              console.error(err);
+            });
           this.changeStroke("green");
-        } else {
-          this.changeStroke("red");
+        } catch (e) {
+          if (this.imageData.length > 1) {
+            this.changeStroke("green");
+          } else {
+            this.changeStroke("red");
+          }
+        } finally {
+          this.store.commit("updateLoader", false);
         }
       }
     },
