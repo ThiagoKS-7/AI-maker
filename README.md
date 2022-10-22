@@ -16,7 +16,11 @@
 
 ---
 
-<p align="center"> A Python base software with the intent to facilitate AI training, deployment & usage, with a intuitive Desktop application;
+![image](https://user-images.githubusercontent.com/83460816/197322995-0226e54f-762d-4b68-89c0-94aebb915805.png)
+
+![image](https://user-images.githubusercontent.com/83460816/197322915-e16c8ae7-e685-4b08-8bc6-9275816d50f7.png)
+
+<p align="center"> A Vue.js web aplication, which has the main objective aiming to facilitate AI training, deployment & usage, with a intuitive features;
     <br> 
 </p>
 
