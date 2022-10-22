@@ -79,7 +79,13 @@ Under development
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@ThiagoKs-7](https://github.com/ThiagoKS-7) - Idea & Initial work
+| [<img src="https://avatars.githubusercontent.com/u/83460816?v=4" width=115><br><sub>Thiago Kasper de Souza</sub>](https://github.com/ThiagoKS-7) |
+| :---: |
+![GitHub Org's stars](https://img.shields.io/github/stars/ThiagoKS-7?style=social)
+
+| [<img src="https://user-images.githubusercontent.com/83460816/197322348-6dbf15d0-d27f-427a-9655-6d2c0875446f.png" width=115><br><sub>Patrick Hubner</sub>](https://github.com/PatrickHubner) |
+| :---: |
+![GitHub Org's stars](https://img.shields.io/github/stars/PatrickHubner?style=social)
 
 See also the list of [contributors](https://github.com/ThiagoKS-7/Ai-maker/contributors) who participated in this project.
 
