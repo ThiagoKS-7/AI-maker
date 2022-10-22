@@ -79,13 +79,13 @@ Under development
 
 ## ✍️ Authors <a name = "authors"></a>
 
-[AdriahnMR](https://github.com/AdriahnMR)
-[bruninhahas](https://github.com/bruninhahas)
-[Eduardo Cardoso](https://github.com/Eduardocardosodev)
-[Érica Oliveira Francisco](https://github.com/ericaolifra)
-[Henrique Goulart](https://github.com/henriqgoulart)
-[Patrick Hubner](https://github.com/PatrickHubner)
-[Thiago Kasper de Souza](https://github.com/ThiagoKS-7)
+- [AdriahnMR](https://github.com/AdriahnMR)
+- [bruninhahas](https://github.com/bruninhahas)
+- [Eduardo Cardoso](https://github.com/Eduardocardosodev)
+- [Érica Oliveira Francisco](https://github.com/ericaolifra)
+- [Henrique Goulart](https://github.com/henriqgoulart)
+- [Patrick Hubner](https://github.com/PatrickHubner)
+- [Thiago Kasper de Souza](https://github.com/ThiagoKS-7)
 
 See also the list of [contributors](https://github.com/ThiagoKS-7/Ai-maker/contributors) who participated in this project.
 
