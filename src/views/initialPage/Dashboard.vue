@@ -21,6 +21,8 @@ import TableIcon from "@/assets/dashboard/tableNode.svg";
 import FileIcon from "@/assets/dashboard/fileNode.svg";
 import OdIcon from "@/assets/dashboard/odNode.svg";
 import OutIcon from "@/assets/dashboard/outNode.svg";
+import OcrIcon from "@/assets/dashboard/ocrNode.svg";
+import DecIcon from "@/assets/dashboard/treeNode.svg";
 import { useStore } from "@/store";
 import { mapState } from "vuex";
 
@@ -56,9 +58,9 @@ export default defineComponent({
       this.sidebarNodes = [
         {
           id: 0,
-          nome: "Input Node",
+          nome: "Text Data",
           type: "input",
-          img: null,
+          img: OcrIcon,
           class: "vue-flow__node-input",
         },
         {
@@ -77,9 +79,9 @@ export default defineComponent({
         },
         {
           id: 3,
-          nome: "Default Node",
+          nome: "SkLearn - Decision Tree",
           type: "default",
-          img: null,
+          img: DecIcon,
           class: "vue-flow__node-default",
         },
         {
@@ -227,26 +229,27 @@ export default defineComponent({
       }
       border: 16px solid #f3f3f3;
       border-radius: 70%;
-      filter: drop-shadow(0 0 0.4em rgb(119, 0, 255));
+      filter: drop-shadow(0 0 0.4em rgb(0, 255, 242));
       border-top: 16px solid rgb(15, 2, 75);
       border-left: 16px solid rgb(223, 7, 7);
       border-right: 16px solid rgb(25, 223, 7);
       border-bottom: 16px solid rgb(5, 0, 70);
       width: 120px;
       height: 120px;
-      -webkit-animation: 2s linear 0s infinite spin;
-      animation: 2s linear 0s infinite spin;
+      -webkit-animation: 1.2s linear 0s infinite spin;
+      animation: 1.2s linear 0s infinite spin;
     }
     .loader2 {
       @extend .loader;
+      filter: drop-shadow(0 0 0.4em rgb(183, 0, 255));
       @media only screen and (max-width: 1869px) {
         left: 37%;
       }
       @media only screen and (min-width: 1870px) {
         left: 46%;
       }
-      -webkit-animation: 2s linear 0s reverse infinite spin;
-      animation: 2s linear 0s reverse infinite spin;
+      -webkit-animation: 1.2s linear 0s reverse infinite spin;
+      animation: 1.2s linear 0s reverse infinite spin;
     }
 
     @-webkit-keyframes spin {
@@ -259,6 +262,7 @@ export default defineComponent({
     }
     @keyframes spin {
       from {
+        filter: brightness(98%);
         transform: translateY(110vh);
         transform: rotate(0deg);
       }

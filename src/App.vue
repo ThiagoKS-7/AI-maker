@@ -41,10 +41,10 @@
   text-align: center;
   color: white;
   @media only screen and (max-width: 1869px) {
-    height: 82vh;
+    height: 88vh;
   }
   @media only screen and (min-width: 1870px) {
-    height: 88vh;
+    height: 89vh;
   }
   background-color: transparent;
 }
