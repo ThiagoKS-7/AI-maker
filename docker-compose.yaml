@@ -18,7 +18,7 @@ services:
       - mongodb
   mongodb:
     image: mongo:3
-    container_name: mongodb-vue
+    container_name: server-mongo-vue
     networks:
       - server-network
     ports:
