@@ -1,38 +1,22 @@
 <template>
   <nav>
-    <div class="title_container" @click="$router.push('/')">
-      <img
-        class="icon"
-        src="https://user-images.githubusercontent.com/83460816/184789013-8b7475ac-3db4-4232-ac74-0f7f0ba9e230.png"
-      />
-      <h1 class="title">AI MAKER</h1>
-    </div>
-    <!-- <router-link to="/">Home</router-link> -->
-    <div class="menu">
-      <div class="icons">
-        <img
-          class="menu_icon"
-          src="./assets/initialPage/home.svg"
-          @click="$router.push('/')"
-        />
-        <img
-          class="menu_icon"
-          src="./assets/initialPage/exit.svg"
-          @click="$router.push('/login')"
-        />
-      </div>
-      <div class="menu_options">
-        <ul class="menu_list">
-          <li>Arquivo</li>
-          <li>Editar</li>
-          <li>Ferramentas</li>
-          <li>Ajuda</li>
-        </ul>
-      </div>
-    </div>
+    <HeaderTitle />
+    <Menu />
   </nav>
   <router-view />
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+import Menu from "./components/molecules/Menu/AppMenu.vue";
+import HeaderTitle from "./components/atoms/HeaderTitle/HeaderTitle.vue";
+export default defineComponent({
+  name: "App",
+  components: {
+    Menu,
+    HeaderTitle,
+  },
+});
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -209,97 +193,6 @@ nav {
     display: flex;
     flex-direction: row;
     gap: 5px;
-  }
-}
-.title_container {
-  display: flex;
-  justify-content: space-between;
-  width: 200px;
-  height: fit-content;
-  margin-left: 2em;
-  margin-top: 1px;
-  cursor: default;
-  color: white;
-  .icon {
-    border-radius: 100px;
-    width: 60px;
-    height: 60px;
-  }
-  &:hover {
-    filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));
-    cursor: pointer;
-  }
-}
-
-.menu {
-  color: white;
-  background-color: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-right: 20px;
-  .icons {
-    display: flex;
-    justify-content: space-between;
-    width: 80px;
-    .menu_icon {
-      width: 30px;
-      height: 30px;
-      opacity: 1;
-      cursor: default;
-      &:hover {
-        cursor: pointer;
-        opacity: 0.8;
-      }
-    }
-  }
-  .menu_options {
-    .menu_list {
-      justify-content: space-evenly;
-      display: flex;
-      list-style-type: none;
-      li {
-        font-size: 18px;
-        padding: 6px 8px;
-        color: #a9aaac;
-        background-size: 300% 100%;
-        border-radius: 6px;
-        -o-transition: all 0.6s ease-in-out;
-        -webkit-transition: all 0.6s ease-in-out;
-        transition: all 0.6s ease-in-out;
-        height: fit-content;
-        &:hover {
-          color: white;
-          background-position: 100% 0;
-          -o-transition: all 0.6s ease-in-out;
-          -webkit-transition: all 0.4s ease-in-out;
-          transition: all 0.4s ease-in-out;
-          background-image: linear-gradient(
-            to right,
-            #0b1c9a,
-            #0361e4,
-            #616efe,
-            #19b1e8
-          );
-          box-shadow: 0 4px 15px 0 rgba(10, 214, 229, 0.75);
-        }
-        &:focused {
-          background-position: 100% 0;
-          -o-transition: all 0.6s ease-in-out;
-          -webkit-transition: all 0.4s ease-in-out;
-          transition: all 0.4s ease-in-out;
-          background-image: linear-gradient(
-            to right,
-            #12153e,
-            #5767e3,
-            #b6ecd2,
-            #2bb673
-          );
-          box-shadow: 0 4px 15px 0 rgba(49, 105, 196, 0.75);
-          box-shadow: 0 4px 15px 0 rgba(10, 214, 229, 0.75);
-        }
-      }
-    }
   }
 }
 </style>
