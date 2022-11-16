@@ -2,7 +2,14 @@
   <div class="menu_options">
     <ul class="menu_list">
       <li @click="toggleFile()" @mouseover="toggleFile()">Arquivo</li>
-      <div v-if="clickedFile" class="dropdown"></div>
+      <div v-if="clickedFile" class="dropdown">
+        <ul style="list-style: none">
+          <li>Novo</li>
+          <li>Abrir</li>
+          <li>Salvar Como</li>
+          <li>Config.</li>
+        </ul>
+      </div>
       <li @click="toggleEdit()" @mouseover="toggleEdit()">Editar</li>
       <div v-if="clickedEdit" class="dropdownEdit"></div>
       <li>Ferramentas</li>
@@ -85,13 +92,13 @@ export default defineComponent({
       }
     }
     .dropdown {
-      width: 100px;
+      width: 300px;
       height: fit-content;
       width: 117px;
       position: absolute;
       z-index: 9999;
       top: 92px;
-      left: 956px;
+      right: 297px;
       padding: 15px 0px;
       background-size: 300% 100%;
       border-radius: 6px;
@@ -112,7 +119,7 @@ export default defineComponent({
     .dropdownEdit {
       @extend .dropdown;
       position: absolute;
-      left: 956px;
+      right: 223px;
     }
   }
 }
