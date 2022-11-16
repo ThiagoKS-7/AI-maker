@@ -5,14 +5,23 @@
       <div class="loader2"></div>
       <h4 class="ldr_text">Loading...</h4>
     </div>
+    <ul class="tab_list">
+      <li
+        class="tab_item"
+        v-for="(tab, index) in tabs"
+        :key="tab.title"
+        @click="selectTab(index)"
+        :class="[{ tab_selected: index == selectedIndex }]"
+      >
+        {{ tab.title }}
+      </li>
+    </ul>
     <ComponentDashboard
       :sidebarNodes="sidebarNodes"
       @compile="compile()"
       @removeOne="removeOne()"
       @clearAll="clearAll()"
     />
-
-    {{ nodeList }}
   </div>
 </template>
 
@@ -25,7 +34,6 @@ import OdIcon from "@/assets/dashboard/odNode.svg";
 import OutIcon from "@/assets/dashboard/outNode.svg";
 import OcrIcon from "@/assets/dashboard/ocrNode.svg";
 import DecIcon from "@/assets/dashboard/treeNode.svg";
-import { useStore } from "@/store";
 import { mapState } from "vuex";
 
 export default defineComponent({
@@ -36,6 +44,8 @@ export default defineComponent({
   data() {
     return {
       sidebarNodes: [],
+      tabs: [{ title: "init.aim" }, { title: "test.aim" }],
+      selectedIndex: 0,
       message: "",
       form: {
         cons: "",
@@ -43,6 +53,7 @@ export default defineComponent({
     };
   },
   mounted() {
+    this.selectTab(0);
     this.getSidebarNodes();
     this.getData();
   },
@@ -53,6 +64,12 @@ export default defineComponent({
     connections: (state) => state.connections,
   }),
   methods: {
+    selectTab(i) {
+      this.selectedIndex = i;
+      this.tabs.forEach((tab, index) => {
+        tab.isActive = index === i;
+      });
+    },
     getSidebarNodes() {
       this.sidebarNodes = [
         {
@@ -196,6 +213,43 @@ export default defineComponent({
 .dash-wrapper {
   height: 100%;
   position: relative;
+
+  .tab_list {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    padding: 8px 0;
+    background-color: rgba(12, 9, 24, 0.7);
+    .tab_item {
+      background: rgb(11, 11, 131);
+      color: rgb(168, 166, 166);
+      margin: 0 3px;
+      width: fit-content;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 6px 18px 0px 0px;
+      padding: 14px 26px;
+      cursor: default;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .tab_selected {
+      background: rgb(11, 11, 214);
+      margin: 0 3px;
+      color: rgb(255, 255, 255);
+      width: fit-content;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 6px 18px 0px 0px;
+      padding: 14px 26px;
+      cursor: default;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
   .ldr_wrapper {
     display: flex;
     position: absolute;
