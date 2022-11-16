@@ -1,4 +1,4 @@
 #!/bin/sh
-npm install
+yarn 
 yarn global add @vue/cli
-npm run serve
+yarn serve

@@ -57,6 +57,7 @@ const onDrop = (event) => {
     label: `${type} node`,
   };
   addNodes([newNode]);
+  store.commit("setNodeList", nodes);
 };
 </script>
 
@@ -85,16 +86,10 @@ export default defineComponent({
   components: {
     Sidebar,
   },
-  data() {
-    return {
-      store: "",
-    };
-  },
-  created() {
-    this.store = useStore();
-  },
-  mounted() {
-    this.store.commit("setNodeList", this.nodes);
+  watch: {
+    nodes() {
+      this.$store.commit("setNodeList", this.nodes);
+    },
   },
   props: {
     sidebarNodes: {

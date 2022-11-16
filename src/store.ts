@@ -74,9 +74,7 @@ export const store = createStore<State>({
       state.nodeList.pop();
     },
     clearNodeList(state) {
-      while (state.nodeList.length != 0) {
-        state.nodeList.pop();
-      }
+      state.nodeList = [];
     },
     setNodeList(state, value) {
       state.nodeList = value;
