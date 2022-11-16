@@ -11,6 +11,8 @@
       @removeOne="removeOne()"
       @clearAll="clearAll()"
     />
+
+    {{ nodeList }}
   </div>
 </template>
 
@@ -39,9 +41,6 @@ export default defineComponent({
         cons: "",
       },
     };
-  },
-  created() {
-    this.store = useStore();
   },
   mounted() {
     this.getSidebarNodes();
@@ -134,11 +133,11 @@ export default defineComponent({
         this.showException("É obrigatório conectar todas as nodes no flow! 1");
       } else {
         this.showException("");
-        this.store.commit("clearException");
+        this.$store.commit("clearException");
       }
     },
     showException(message) {
-      this.store.commit("increaseException");
+      this.$store.commit("increaseException");
       this.message = message;
     },
     changeStroke(color) {
@@ -156,36 +155,36 @@ export default defineComponent({
       }
       this.checkExceptions();
       if (this.exceptions == 0) {
-        this.store.commit("setReady", true);
+        this.$store.commit("setReady", true);
         this.changeStroke("lime");
       } else {
-        this.store.commit("setReady", false);
+        this.$store.commit("setReady", false);
         this.changeStroke("red");
       }
     },
     compile() {
       try {
         this.getData();
-        this.store.commit("updateLoader", true);
+        this.$store.commit("updateLoader", true);
         this.compiler = "";
-        this.store.commit("clearException");
-        this.store.commit("setReady", true);
+        this.$store.commit("clearException");
+        this.$store.commit("setReady", true);
         this.validateCompilation();
       } catch (e) {
         if (this.message) {
           console.error(this.message);
         }
       } finally {
-        setTimeout(this.store.commit("updateLoader", false), 80000);
+        setTimeout(this.$store.commit("updateLoader", false), 80000);
       }
     },
     removeOne() {
-      this.store.commit("removeOne");
+      this.$store.commit("removeOne");
     },
     clearAll() {
-      this.store.commit("clearNodeList");
-      this.store.commit("clearException");
-      this.store.commit("clearConnections");
+      this.$store.commit("clearNodeList");
+      this.$store.commit("clearException");
+      this.$store.commit("clearConnections");
     },
     back() {
       return this.$router.push("/");
