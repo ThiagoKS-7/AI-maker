@@ -6,8 +6,7 @@ services:
     command: yarn serve
     entrypoint: ./.docker/entrypoint.sh
     ports:
-      - 8080
-      - 3500
+      - 8080:8080
     container_name: vue-app
     volumes:
       - .:/home/node/app
