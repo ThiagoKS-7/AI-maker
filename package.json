@@ -14,11 +14,13 @@
     "@braks/vue-flow": "^0.4.40",
     "axios": "^1.0.0",
     "core-js": "^3.8.3",
+    "file-saver": "^2.0.5",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",

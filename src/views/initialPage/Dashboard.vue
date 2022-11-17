@@ -13,6 +13,7 @@
         @click="selectTab(index)"
         :class="[{ tab_selected: index == selectedIndex }]"
       >
+        <i @click="tabs.pop(tab)" class="close_icon">X</i>
         {{ tab.title }}
       </li>
     </ul>
@@ -35,6 +36,7 @@ import OutIcon from "@/assets/dashboard/outNode.svg";
 import OcrIcon from "@/assets/dashboard/ocrNode.svg";
 import DecIcon from "@/assets/dashboard/treeNode.svg";
 import { mapState } from "vuex";
+import { useStore } from "@/store";
 
 export default defineComponent({
   name: "DashboardView",
@@ -44,7 +46,108 @@ export default defineComponent({
   data() {
     return {
       sidebarNodes: [],
-      tabs: [{ title: "init.aim" }, { title: "test.aim" }],
+      tabs: [
+        {
+          title: "init.aim",
+          value: [
+            {
+              type: "tD",
+              dimensions: {
+                width: 102,
+                height: 102,
+              },
+              handleBounds: {
+                source: [
+                  {
+                    id: "tD__handle-bottom",
+                    position: "bottom",
+                    x: 46.99998643663194,
+                    y: 98.00001356336806,
+                    width: 8,
+                    height: 8,
+                  },
+                ],
+              },
+              computedPosition: {
+                x: 720,
+                y: 321.1111111111111,
+                z: 0,
+              },
+              id: "tD1",
+              position: {
+                x: 720,
+                y: 321.1111111111111,
+              },
+              label: "tD node",
+            },
+          ],
+        },
+        {
+          title: "test.aim",
+          value: [
+            {
+              type: "input",
+              dimensions: {
+                width: 100,
+                height: 100,
+              },
+              handleBounds: {
+                source: [
+                  {
+                    id: "in0__handle-bottom",
+                    position: "bottom",
+                    x: 45.99999321831597,
+                    y: 95,
+                    width: 8,
+                    height: 8,
+                  },
+                ],
+              },
+              computedPosition: {
+                x: 411.1111111111111,
+                y: 321.1111111111111,
+                z: 0,
+              },
+              id: "in0",
+              position: {
+                x: 411.1111111111111,
+                y: 321.1111111111111,
+              },
+              label: "input node",
+            },
+            {
+              type: "tD",
+              dimensions: {
+                width: 102,
+                height: 102,
+              },
+              handleBounds: {
+                source: [
+                  {
+                    id: "tD__handle-bottom",
+                    position: "bottom",
+                    x: 46.99998643663194,
+                    y: 98.00001356336806,
+                    width: 8,
+                    height: 8,
+                  },
+                ],
+              },
+              computedPosition: {
+                x: 720,
+                y: 321.1111111111111,
+                z: 0,
+              },
+              id: "tD1",
+              position: {
+                x: 720,
+                y: 321.1111111111111,
+              },
+              label: "tD node",
+            },
+          ],
+        },
+      ],
       selectedIndex: 0,
       message: "",
       form: {
@@ -68,6 +171,8 @@ export default defineComponent({
       this.selectedIndex = i;
       this.tabs.forEach((tab, index) => {
         tab.isActive = index === i;
+        console.log(tab.value);
+        this.$store.commit("setNodeList", this.tabs[this.selectedIndex].value);
       });
     },
     getSidebarNodes() {
@@ -221,7 +326,7 @@ export default defineComponent({
     padding: 8px 0;
     background-color: rgba(12, 9, 24, 0.7);
     .tab_item {
-      background: rgb(11, 11, 131);
+      background: linear-gradient(to right, #00225e, #0b1931, rgb(47, 32, 61));
       color: rgb(168, 166, 166);
       margin: 0 3px;
       width: fit-content;
@@ -230,13 +335,25 @@ export default defineComponent({
       border-radius: 6px 18px 0px 0px;
       padding: 14px 26px;
       cursor: default;
+      position: relative;
       &:hover {
         cursor: pointer;
+      }
+      .close_icon {
+        position: absolute;
+        font-size: 10px;
+        top: 7px;
+        right: 8px;
+        color: #8d8a8a;
+        &:hover {
+          font-weight: bold;
+          color: white;
+        }
       }
     }
 
     .tab_selected {
-      background: rgb(11, 11, 214);
+      background: linear-gradient(to left, rgb(100, 45, 151), #0361e4, #616efe);
       margin: 0 3px;
       color: rgb(255, 255, 255);
       width: fit-content;
