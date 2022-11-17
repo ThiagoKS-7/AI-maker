@@ -3,10 +3,10 @@
     <ul class="menu_list">
       <li @click="toggleFile()" @mouseover="toggleFile()">Arquivo</li>
       <div v-if="clickedFile" class="dropdown">
-        <ul style="list-style: none">
+        <ul class="dropdown_list">
           <li>Novo</li>
           <li>Abrir</li>
-          <li>Salvar Como</li>
+          <li @click="saveFile()">Salvar Como</li>
           <li>Config.</li>
         </ul>
       </div>
@@ -18,7 +18,10 @@
   </div>
 </template>
 <script lang="ts">
+import FileSaver from "file-saver";
 import { defineComponent } from "vue";
+import { mapState } from "vuex";
+
 export default defineComponent({
   name: "MenuOptions",
   data() {
@@ -27,12 +30,25 @@ export default defineComponent({
       clickedEdit: false,
     };
   },
+  computed: mapState({
+    nodeList: (state: any) => state.nodeList,
+  }),
   methods: {
     toggleFile() {
       this.clickedFile = !this.clickedFile;
       if (this.clickedFile) {
         this.clickedEdit = false;
       }
+    },
+    saveFile() {
+      const temp: any = [];
+      this.nodeList.forEach((el: any) => {
+        temp.push(el);
+      });
+      var blob = new Blob([JSON.stringify(temp)], {
+        type: "text/plain;charset=utf-8",
+      });
+      FileSaver.saveAs(blob, "myflow.aim");
     },
     toggleEdit() {
       this.clickedEdit = !this.clickedEdit;
@@ -98,7 +114,7 @@ export default defineComponent({
       position: absolute;
       z-index: 9999;
       top: 92px;
-      right: 297px;
+      right: 287px;
       padding: 15px 0px;
       background-size: 300% 100%;
       border-radius: 6px;
@@ -120,6 +136,12 @@ export default defineComponent({
       @extend .dropdown;
       position: absolute;
       right: 223px;
+    }
+    .dropdown_list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
     }
   }
 }
