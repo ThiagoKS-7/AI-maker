@@ -86,11 +86,6 @@ export default defineComponent({
   components: {
     Sidebar,
   },
-  watch: {
-    nodes() {
-      this.$store.commit("setNodeList", this.nodes);
-    },
-  },
   props: {
     sidebarNodes: {
       required: true,
