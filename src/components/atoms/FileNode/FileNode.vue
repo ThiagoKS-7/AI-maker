@@ -35,6 +35,7 @@ export default defineComponent({
 <template>
   <div class="table_node">
     <div class="table_margin">
+      <img v-if="!imageData" class="upload_img" :src="require(`@/assets/dashboard/upcloud.`)" />
       <input
         v-if="!imageData"
         type="file"
