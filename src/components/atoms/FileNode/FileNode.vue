@@ -35,16 +35,16 @@ export default defineComponent({
 <template>
   <div class="table_node">
     <div class="table_margin">
-      <img v-if="!imageData" class="upload_img" :src="require(`@/assets/dashboard/upcloud.`)" />
       <input
         v-if="!imageData"
         type="file"
         id="filepicker"
         ref="myFiles"
         accept="image/*"
-        class="custom-file-input"
+        class="custom_file_input"
         @change="previewFile()"
       />
+      <label v-if="!imageData" class="upload_label">Escolha o arquivo:</label>
       <img class="img_preview" v-if="imageData" :src="imageData" />
       <h5 class="title" v-if="!store.getters.getFiles">File Data</h5>
       <h5 class="title" v-else>{{ this.store.getters.getFiles[0]?.name }}</h5>
@@ -83,9 +83,39 @@ export default defineComponent({
       font-size: 14px;
       margin: 0;
     }
+    .upload_img {
+      max-width: 60px;
+    }
+    .upload_label {
+      font-size: 12px;
+      margin-top: -5px;
+      padding: 0 0 10px 0;
+    }
+
+    .custom_file_input {
+      display: inline-block;
+      max-width: 80px;
+      padding: 70px 0 0 0;
+      overflow: hidden;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      background: url("@/assets/dashboard/upcloud.svg") center center no-repeat;
+      border-radius: 20px;
+      background-size: 60px 60px;
+    }
     .img_preview {
       max-width: 65px;
       margin-bottom: 5px;
+    }
+    &:hover {
+      label {
+        opacity: 0;
+      }
+      .custom_file_input {
+        margin-top: 20px;
+        background-size: 75px;
+      }
     }
   }
   .node_icon {
