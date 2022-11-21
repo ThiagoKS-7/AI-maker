@@ -10,9 +10,15 @@ import {
   VueFlow,
   useVueFlow,
 } from "@braks/vue-flow";
+import { defineComponent } from "vue";
+import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
+import { useStore } from "@/store";
 import { markRaw } from "vue";
+
 let id = 0;
+const store = useStore();
 const getId = (type) => `${type[0]}${type[1]}${id++}`;
+
 const { onConnect, addEdges, nodes, addNodes, project } = useVueFlow({
   defaultZoom: 0.9,
   maxZoom: 1.4,
@@ -30,7 +36,6 @@ const onDragOver = (event) => {
     event.dataTransfer.dropEffect = "move";
   }
 };
-const store = useStore();
 onConnect((params) => {
   let con = "#" + params.source[2] + params.target[2];
   addEdges([
@@ -46,7 +51,6 @@ onConnect((params) => {
   ]);
   store.commit("pushConnection", con);
 });
-
 const onDrop = (event) => {
   const type = event.dataTransfer?.getData("application/vueflow");
   const position = project({ x: event.clientX - 40, y: event.clientY - 18 });
@@ -60,10 +64,26 @@ const onDrop = (event) => {
   store.commit("setNodeList", nodes);
 };
 </script>
-
+<script>
+export default {
+  name: "ComponentDashboard",
+  components: {
+    Sidebar,
+  },
+  props: {
+    sidebarNodes: {
+      required: true,
+    },
+  },
+};
+</script>
 <template>
   <div class="dndflow mask" @drop="onDrop">
-    <VueFlow @dragover="onDragOver" :auto-connect="connector">
+    <VueFlow
+      @dragover="onDragOver"
+      :auto-connect="connector"
+      :nodes="$store.getters.getNodeList"
+    >
       <MiniMap />
       <Controls />
       <Background :variant="BackgroundVariant.Dots" />
@@ -76,23 +96,6 @@ const onDrop = (event) => {
     />
   </div>
 </template>
-<script>
-import { defineComponent } from "vue";
-import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
-import { useStore } from "@/store";
-
-export default defineComponent({
-  name: "ComponentDashboard",
-  components: {
-    Sidebar,
-  },
-  props: {
-    sidebarNodes: {
-      required: true,
-    },
-  },
-});
-</script>
 <style lang="scss" scoped>
 .mask {
   background-color: #080b11;

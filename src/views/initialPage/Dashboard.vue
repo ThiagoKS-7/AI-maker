@@ -36,7 +36,6 @@ import OutIcon from "@/assets/dashboard/outNode.svg";
 import OcrIcon from "@/assets/dashboard/ocrNode.svg";
 import DecIcon from "@/assets/dashboard/treeNode.svg";
 import { mapState } from "vuex";
-import { useStore } from "@/store";
 
 export default defineComponent({
   name: "DashboardView",
@@ -156,7 +155,7 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.selectTab(0);
+    this.selectTab(this.selectedIndex);
     this.getSidebarNodes();
     this.getData();
   },
@@ -166,12 +165,16 @@ export default defineComponent({
     exceptions: (state) => state.exceptions,
     connections: (state) => state.connections,
   }),
+  watch: {
+    nodeList() {
+      this.tabs[this.selectedIndex].value = this.nodeList;
+    },
+  },
   methods: {
     selectTab(i) {
       this.selectedIndex = i;
       this.tabs.forEach((tab, index) => {
         tab.isActive = index === i;
-        console.log(tab.value);
         this.$store.commit("setNodeList", this.tabs[this.selectedIndex].value);
       });
     },
