@@ -40,7 +40,7 @@ export default defineComponent({
   cursor: default;
   height: fit-content;
   .svg_icon {
-    width: 210px;
+    width: 194px;
     height: 210px;
     transition: all 0.2s ease-in-out;
     @media only screen and (min-width: 1870px) {
