@@ -103,5 +103,8 @@ export default {
   aside {
     opacity: 1;
   }
+  @media only screen and (min-width: 1100px) {
+    height: 81.5vh;
+  }
 }
 </style>

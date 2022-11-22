@@ -1,5 +1,5 @@
 <template>
-  <div class="menu_options">
+  <div v-if="$route.fullPath == '/dashboard'" class="menu_options">
     <ul class="menu_list">
       <li @click="toggleFile()" @mouseover="toggleFile()">Arquivo</li>
       <div v-if="clickedFile" class="dropdown">
@@ -131,11 +131,17 @@ export default defineComponent({
       );
       height: -moz-fit-content;
       height: fit-content;
+      @media only screen and (min-width: 10px) and (max-width: 1100px) {
+        right: 145px;
+      }
     }
     .dropdownEdit {
       @extend .dropdown;
       position: absolute;
       right: 223px;
+      @media only screen and (min-width: 10px) and (max-width: 1100px) {
+        right: 70px;
+      }
     }
     .dropdown_list {
       list-style: none;
