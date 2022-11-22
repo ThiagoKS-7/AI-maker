@@ -45,5 +45,6 @@ export default defineComponent({
   margin-top: 5em;
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 </style>

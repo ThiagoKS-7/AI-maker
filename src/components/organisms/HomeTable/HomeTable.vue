@@ -28,7 +28,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .table-wrapper {
   opacity: 1;
   position: relative;
@@ -37,6 +37,10 @@ export default defineComponent({
   z-index: 1;
   position: absolute;
   width: 100%;
+  padding: 7rem 0;
+  @media only screen and (min-width: 10px) and (max-width: 1200px) {
+    padding: 4rem 0;
+  }
 }
 .mask {
   background-color: #141a25;
@@ -46,5 +50,9 @@ export default defineComponent({
   height: 100vh;
   z-index: 0;
   top: 0%;
+  @media only screen and (min-width: 10px) and (max-width: 1200px) {
+    height: 154vh;
+    display: flex;
+  }
 }
 </style>
