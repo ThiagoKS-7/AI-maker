@@ -322,8 +322,8 @@ export default defineComponent({
   height: 100%;
   position: relative;
   @media only screen and (min-width: 10px) and (max-width: 1100px) {
-    height: 67rem;
-    width: 23.8rem;
+    height: 90%;
+    width: 100%;
   }
 
   .tab_list {
