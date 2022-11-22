@@ -3,6 +3,7 @@ import TableNode from "@/components/atoms/TableNode/TableNode.vue";
 import FileNode from "@/components/atoms/FileNode/FileNode.vue";
 import ObjDetectionNode from "@/components/atoms/ObjDetectionNode/ObjDetectionNode.vue";
 import DefaultOutputNode from "@/components/atoms/DefaultOutputNode/DefaultOutputNode.vue";
+import OcrNode from "@/components/atoms/OcrNode/OcrNode.vue";
 import {
   Background,
   BackgroundVariant,
@@ -27,6 +28,7 @@ const { onConnect, addEdges, nodes, addNodes, project } = useVueFlow({
     tD: markRaw(TableNode),
     fD: markRaw(FileNode),
     oD: markRaw(ObjDetectionNode),
+    ocr: markRaw(OcrNode),
     oN: markRaw(DefaultOutputNode),
   },
 });

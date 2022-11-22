@@ -183,9 +183,9 @@ export default defineComponent({
         {
           id: 0,
           nome: "Text Data",
-          type: "input",
+          type: "ocr",
           img: OcrIcon,
-          class: "vue-flow__node-input",
+          class: "vue-flow__node-default",
         },
         {
           id: 1,
@@ -196,7 +196,7 @@ export default defineComponent({
         },
         {
           id: 2,
-          nome: "File Data",
+          nome: "Image Data",
           type: "fD",
           img: FileIcon,
           class: "vue-flow__node-input",
@@ -322,8 +322,8 @@ export default defineComponent({
   height: 100%;
   position: relative;
   @media only screen and (min-width: 10px) and (max-width: 1100px) {
-    height: 56rem;
-    width: 34.8rem;
+    height: 90%;
+    width: 100%;
   }
 
   .tab_list {

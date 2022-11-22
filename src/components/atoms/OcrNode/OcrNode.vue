@@ -18,12 +18,12 @@ export default defineComponent({
     this.store = useStore();
   },
   mounted() {
-    this.store.commit("setApiUrl", "/yolo");
+    this.store.commit("setApiUrl", "/ocr");
   },
   methods: {
     openCode() {
       window.open(
-        "https://vscode.dev/github/ThiagoKS-7/Python-YOLO_v3-2022",
+        "https://vscode.dev/github/ThiagoKS-7/Python-Ocr-2022",
         "_blank"
       );
     },
@@ -48,8 +48,8 @@ export default defineComponent({
           <g transform="translate(151.4918975830078, 6.876411437988281)">
             <defs>
               <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style="stop-color: #00d8fe"></stop>
-                <stop offset="100%" style="stop-color: #7161fe"></stop>
+                <stop offset="0%" style="stop-color: #3b00fe"></stop>
+                <stop offset="100%" style="stop-color: #fe61c2"></stop>
               </linearGradient>
             </defs>
             <path fill="url(#gradient)">
@@ -68,7 +68,7 @@ export default defineComponent({
           </g>
         </svg>
       </section>
-      <h5 class="title">YOLOv3 Obj-Det</h5>
+      <h5 class="title">Tesseract OCR</h5>
     </div>
   </div>
   <Handle id="oD__handle-bottom" type="source" :position="Position.Bottom" />
