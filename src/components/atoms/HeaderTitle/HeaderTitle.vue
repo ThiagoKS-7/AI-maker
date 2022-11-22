@@ -23,10 +23,19 @@ export default defineComponent({
   margin-top: 1px;
   cursor: default;
   color: white;
+  .title {
+    @media only screen and (min-width: 0px) and (max-width: 1100px) {
+      display: none;
+    }
+  }
   .icon {
     border-radius: 100px;
     width: 60px;
     height: 60px;
+    @media only screen and (min-width: 0px) and (max-width: 1100px) {
+      width: 40px;
+      height: 40px;
+    }
   }
   &:hover {
     filter: drop-shadow(0 0 0.4em rgb(38, 212, 255));

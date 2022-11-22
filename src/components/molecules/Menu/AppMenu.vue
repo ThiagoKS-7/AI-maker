@@ -33,6 +33,9 @@ export default defineComponent({
   flex-direction: column;
   align-items: flex-end;
   margin-right: 20px;
+  @media only screen and (min-width: 0px) and (max-width: 1100px) {
+    width: 40px;
+  }
   .icons {
     display: flex;
     justify-content: space-between;

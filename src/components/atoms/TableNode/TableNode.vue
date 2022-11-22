@@ -1,23 +1,56 @@
-<script lang="ts" setup>
+<script setup>
 import { Handle, Position } from "@braks/vue-flow";
 </script>
-<script lang="ts">
-export default {
+<script>
+import { defineComponent } from "vue";
+import { useStore } from "@/store";
+
+export default defineComponent({
+  name: "TableNode",
   inheritAttrs: false,
-};
+  data() {
+    return {
+      tableData: "",
+      store: "",
+    };
+  },
+  created() {
+    this.store = useStore();
+  },
+  methods: {
+    async previewFile() {
+      this.store.commit("setFiles", this.$refs.myFiles.files);
+      if (this.store.getters.getFiles && this.store.getters.getFiles[0]) {
+        const reader = new FileReader();
+        this.store.commit("formAppend", this.store.getters.getFiles[0]);
+        reader.onload = (e) => {
+          this.tableData = e.target.result;
+        };
+        reader.readAsDataURL(this.store.getters.getFiles[0]);
+      }
+    },
+  },
+});
 </script>
 <template>
   <div class="table_node">
     <div class="table_margin">
-      <img
-        class="node_icon"
-        src="@/assets/dashboard/tableNode.svg"
-        @click="onClick"
+      <input
+        v-if="!tableData"
+        type="file"
+        id="filepicker"
+        ref="myFiles"
+        accept=".csv, .xls, .xslx"
+        class="custom_file_input"
+        @change="previewFile()"
       />
-      <h5 class="title">Table Data</h5>
+      <label v-if="!tableData" class="upload_label">Escolha a tabela:</label>
+      <img class="img_preview" v-if="tableData" :src="tableData" />
+      <h5 class="title" v-if="!store.getters.getFiles">Table Data</h5>
+      <h5 class="title" v-else>{{ this.store.getters.getFiles[0]?.name }}</h5>
     </div>
   </div>
-  <Handle id="tD__handle-bottom" type="source" :position="Position.Bottom" />
+  <Handle id="fD__handle-bottom" type="source" :position="Position.Bottom" />
 </template>
 <style lang="scss" scoped>
 .table_node {
@@ -49,6 +82,40 @@ export default {
     .title {
       font-size: 14px;
       margin: 0;
+    }
+    .upload_img {
+      max-width: 60px;
+    }
+    .upload_label {
+      font-size: 12px;
+      margin-top: -5px;
+      padding: 0 0 10px 0;
+    }
+
+    .custom_file_input {
+      display: inline-block;
+      max-width: 80px;
+      padding: 70px 0 0 0;
+      overflow: hidden;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      background: url("@/assets/dashboard/upcloud.svg") center center no-repeat;
+      border-radius: 20px;
+      background-size: 60px 60px;
+    }
+    .img_preview {
+      max-width: 65px;
+      margin-bottom: 5px;
+    }
+    &:hover {
+      label {
+        opacity: 0;
+      }
+      .custom_file_input {
+        margin-top: 20px;
+        background-size: 75px;
+      }
     }
   }
   .node_icon {
