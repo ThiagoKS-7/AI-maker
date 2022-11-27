@@ -1,9 +1,9 @@
 <script setup>
 import { Handle, Position } from "@braks/vue-flow";
+this.store = useStore();
 </script>
 <script>
 import { defineComponent } from "vue";
-// import axios from "axios";
 import { useStore } from "@/store";
 
 export default defineComponent({
@@ -13,9 +13,6 @@ export default defineComponent({
     return {
       code: "</>",
     };
-  },
-  created() {
-    this.store = useStore();
   },
   mounted() {
     this.store.commit("setApiUrl", "/yolo");

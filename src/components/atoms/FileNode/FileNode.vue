@@ -1,5 +1,6 @@
 <script setup>
 import { Handle, Position } from "@braks/vue-flow";
+this.store = useStore();
 </script>
 <script>
 import { defineComponent } from "vue";
@@ -13,9 +14,6 @@ export default defineComponent({
       imageData: "",
       store: "",
     };
-  },
-  created() {
-    this.store = useStore();
   },
   methods: {
     async previewFile() {

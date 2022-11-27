@@ -13,11 +13,9 @@ import {
 } from "@braks/vue-flow";
 import { defineComponent } from "vue";
 import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
-import { useStore } from "@/store";
 import { markRaw } from "vue";
 
 let id = 0;
-const store = useStore();
 const getId = (type) => `${type[0]}${type[1]}${id++}`;
 
 const { onConnect, addEdges, nodes, addNodes, project } = useVueFlow({
@@ -51,7 +49,6 @@ onConnect((params) => {
       },
     },
   ]);
-  store.commit("pushConnection", con);
 });
 const onDrop = (event) => {
   const type = event.dataTransfer?.getData("application/vueflow");
@@ -63,7 +60,6 @@ const onDrop = (event) => {
     label: `${type} node`,
   };
   addNodes([newNode]);
-  store.commit("setNodeList", nodes);
 };
 </script>
 <script>
@@ -81,11 +77,7 @@ export default {
 </script>
 <template>
   <div class="dndflow mask" @drop="onDrop">
-    <VueFlow
-      @dragover="onDragOver"
-      :auto-connect="connector"
-      :nodes="$store.getters.getNodeList"
-    >
+    <VueFlow @dragover="onDragOver" :auto-connect="connector" :nodes="nodes">
       <MiniMap />
       <Controls />
       <Background :variant="BackgroundVariant.Dots" />
