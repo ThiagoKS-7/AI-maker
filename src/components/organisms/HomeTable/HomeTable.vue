@@ -37,7 +37,7 @@ export default defineComponent({
   z-index: 1;
   position: absolute;
   width: 100%;
-  padding: 7rem 0;
+  padding: 3rem 0;
   @media only screen and (min-width: 10px) and (max-width: 1200px) {
     padding: 4rem 0;
   }
