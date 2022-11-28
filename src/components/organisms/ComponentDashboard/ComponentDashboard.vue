@@ -52,15 +52,28 @@ onConnect((params) => {
   store.commit("pushConnection", con);
 });
 const onDrop = (event: any) => {
-  const type = event.dataTransfer?.getData("application/vueflow");
-  const position = project({ x: event.clientX - 40, y: event.clientY - 18 });
-  const newNode = {
-    id: getId(type),
-    type,
-    position,
-    label: `${type} node`,
-  };
-  addNodes([newNode]);
+  if (event.dataTransfer) {
+    const type = event.dataTransfer?.getData("application/vueflow");
+    const position = project({ x: event.clientX - 40, y: event.clientY - 18 });
+    const newNode = {
+      id: getId(type),
+      type,
+      position,
+      label: `${type} node`,
+    };
+    addNodes([newNode]);
+    store.commit("setNodeList", nodes);
+  } else {
+    const position = project({ x: 40, y: 18 });
+    const newNode = {
+      id: getId(event.type),
+      type: event.type,
+      position,
+      label: `${event.type} node`,
+    };
+    addNodes([newNode]);
+    store.commit("setNodeList", nodes);
+  }
 };
 </script>
 <script lang="ts">
