@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import TableNode from "@/components/atoms/TableNode/TableNode.vue";
 import FileNode from "@/components/atoms/FileNode/FileNode.vue";
 import ObjDetectionNode from "@/components/atoms/ObjDetectionNode/ObjDetectionNode.vue";
@@ -11,14 +11,12 @@ import {
   VueFlow,
   useVueFlow,
 } from "@braks/vue-flow";
-import { defineComponent } from "vue";
-import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
-import { useStore } from "@/store";
 import { markRaw } from "vue";
+import { useStore } from "@/store";
 
 let id = 0;
+const getId = (type: any) => `${type[0]}${type[1]}${id++}`;
 const store = useStore();
-const getId = (type) => `${type[0]}${type[1]}${id++}`;
 
 const { onConnect, addEdges, nodes, addNodes, project } = useVueFlow({
   defaultZoom: 0.9,
@@ -32,7 +30,7 @@ const { onConnect, addEdges, nodes, addNodes, project } = useVueFlow({
     oN: markRaw(DefaultOutputNode),
   },
 });
-const onDragOver = (event) => {
+const onDragOver = (event: any) => {
   event.preventDefault();
   if (event.dataTransfer) {
     event.dataTransfer.dropEffect = "move";
@@ -53,33 +51,22 @@ onConnect((params) => {
   ]);
   store.commit("pushConnection", con);
 });
-const onDrop = (event) => {
-  if (event.dataTransfer) {
-    const type = event.dataTransfer?.getData("application/vueflow");
-    const position = project({ x: event.clientX - 40, y: event.clientY - 18 });
-    const newNode = {
-      id: getId(type),
-      type,
-      position,
-      label: `${type} node`,
-    };
-    addNodes([newNode]);
-    store.commit("setNodeList", nodes);
-  } else {
-    const position = project({ x: 40, y: 18 });
-    const newNode = {
-      id: getId(event.type),
-      type: event.type,
-      position,
-      label: `${event.type} node`,
-    };
-    addNodes([newNode]);
-    store.commit("setNodeList", nodes);
-  }
+const onDrop = (event: any) => {
+  const type = event.dataTransfer?.getData("application/vueflow");
+  const position = project({ x: event.clientX - 40, y: event.clientY - 18 });
+  const newNode = {
+    id: getId(type),
+    type,
+    position,
+    label: `${type} node`,
+  };
+  addNodes([newNode]);
 };
 </script>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
+export default defineComponent({
   name: "ComponentDashboard",
   components: {
     Sidebar,
@@ -89,13 +76,13 @@ export default {
       required: true,
     },
   },
-};
+});
 </script>
 <template>
   <div class="dndflow mask" @drop="onDrop">
     <VueFlow
       @dragover="onDragOver"
-      :auto-connect="connector"
+      auto-connect
       :nodes="$store.getters.getNodeList"
     >
       <MiniMap />

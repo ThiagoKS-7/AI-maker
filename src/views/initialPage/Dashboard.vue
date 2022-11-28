@@ -294,10 +294,13 @@ export default defineComponent({
         this.compiler = "";
         this.$store.commit("clearException");
         this.$store.commit("setReady", true);
-        this.validateCompilation();
+        this.changeStroke("lime");
+        //TODO: Arrumar validação do compiler
+        //this.validateCompilation();
       } catch (e) {
         if (this.message) {
           console.error(this.message);
+          alert(this.message);
         }
       } finally {
         setTimeout(this.$store.commit("updateLoader", false), 80000);
@@ -310,6 +313,7 @@ export default defineComponent({
       this.$store.commit("clearNodeList");
       this.$store.commit("clearException");
       this.$store.commit("clearConnections");
+      this.$store.commit("setFiles", []);
     },
     back() {
       return this.$router.push("/");
