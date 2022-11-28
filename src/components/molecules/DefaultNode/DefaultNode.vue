@@ -1,7 +1,7 @@
 <template>
   <div class="table_margin">
     <img v-if="img" class="node_icon" :src="img" />
-    <h5 class="title">{{ name }}</h5>
+    <h5 class="name">{{ name }}</h5>
   </div>
 </template>
 <script>
@@ -19,3 +19,9 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped lang="scss">
+.name {
+  font-size: 11px;
+  margin: 0.5em 0;
+}
+</style>
