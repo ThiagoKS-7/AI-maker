@@ -1,35 +1,3 @@
-<script setup>
-import { Handle, Position } from "@braks/vue-flow";
-</script>
-<script>
-import { defineComponent } from "vue";
-// import axios from "axios";
-import { useStore } from "@/store";
-
-export default defineComponent({
-  name: "ObjectDetectionNode",
-  inheritAttrs: false,
-  data() {
-    return {
-      code: "</>",
-    };
-  },
-  created() {
-    this.store = useStore();
-  },
-  mounted() {
-    this.store.commit("setApiUrl", "/ocr");
-  },
-  methods: {
-    openCode() {
-      window.open(
-        "https://vscode.dev/github/ThiagoKS-7/Python-Ocr-2022",
-        "_blank"
-      );
-    },
-  },
-});
-</script>
 <template>
   <div class="table_node">
     <Handle id="oD__handle-top" type="source" :position="Position.Top" />
@@ -73,6 +41,33 @@ export default defineComponent({
   </div>
   <Handle id="oD__handle-bottom" type="source" :position="Position.Bottom" />
 </template>
+<script>
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "ObjectDetectionNode",
+  inheritAttrs: false,
+  data() {
+    return {
+      code: "</>",
+    };
+  },
+  mounted() {
+    this.$store.commit("setApiUrl", "/ocr");
+  },
+  methods: {
+    openCode() {
+      window.open(
+        "https://vscode.dev/github/ThiagoKS-7/Python-Ocr-2022",
+        "_blank"
+      );
+    },
+  },
+});
+</script>
+<script setup>
+import { Handle, Position } from "@braks/vue-flow";
+</script>
 <style lang="scss" scoped>
 .table_node {
   border-radius: 8px;
