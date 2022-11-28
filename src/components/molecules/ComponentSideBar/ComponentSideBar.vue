@@ -8,7 +8,10 @@
       </Button>
     </div>
     <h3 class="description">Nodes Disponíveis</h3>
-    <NodeList :sidebarNodes="sidebarNodes" />
+    <NodeList
+      :sidebarNodes="sidebarNodes"
+      @onNodeClick="$emit('onNodeClick', $event)"
+    />
   </aside>
 </template>
 <script>

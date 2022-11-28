@@ -92,6 +92,7 @@ export default defineComponent({
     <Sidebar
       :sidebarNodes="sidebarNodes"
       @compile="$emit('compile', $event)"
+      @onNodeClick="onDrop($event)"
       @removeOne="$emit('removeOne', $event)"
       @clearAll="$emit('clearAll', $event)"
     />

@@ -5,6 +5,7 @@
       :key="item.id"
       :class="item.class"
       :draggable="true"
+      @click="onNodeClick(item)"
       @dragstart="onDragStart($event, item.type)"
     >
       <DefaultNode :img="item.img" :name="item.nome" />
@@ -31,6 +32,9 @@ export default defineComponent({
         event.dataTransfer.setData("application/vueflow", nodeType);
         event.dataTransfer.effectAllowed = "move";
       }
+    },
+    onNodeClick(item) {
+      this.$emit("onNodeClick", item);
     },
   },
 });
