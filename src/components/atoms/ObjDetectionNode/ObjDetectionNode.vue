@@ -1,10 +1,8 @@
 <script setup>
 import { Handle, Position } from "@braks/vue-flow";
-this.store = useStore();
 </script>
 <script>
 import { defineComponent } from "vue";
-import { useStore } from "@/store";
 
 export default defineComponent({
   name: "ObjectDetectionNode",
@@ -15,7 +13,7 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.store.commit("setApiUrl", "/yolo");
+    this.$store.commit("setApiUrl", "/yolo");
   },
   methods: {
     openCode() {

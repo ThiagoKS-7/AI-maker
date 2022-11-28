@@ -1,10 +1,8 @@
 <script setup>
 import { Handle, Position } from "@braks/vue-flow";
-this.store = useStore();
 </script>
 <script>
 import { defineComponent } from "vue";
-import { useStore } from "@/store";
 
 export default defineComponent({
   name: "FileNode",
@@ -12,19 +10,18 @@ export default defineComponent({
   data() {
     return {
       imageData: "",
-      store: "",
     };
   },
   methods: {
     async previewFile() {
-      this.store.commit("setFiles", this.$refs.myFiles.files);
-      if (this.store.getters.getFiles && this.store.getters.getFiles[0]) {
+      this.$store.commit("setFiles", this.$refs.myFiles.files);
+      if (this.$store.getters.getFiles && this.$store.getters.getFiles[0]) {
         const reader = new FileReader();
-        this.store.commit("formAppend", this.store.getters.getFiles[0]);
+        this.$store.commit("formAppend", this.$store.getters.getFiles[0]);
         reader.onload = (e) => {
           this.imageData = e.target.result;
         };
-        reader.readAsDataURL(this.store.getters.getFiles[0]);
+        reader.readAsDataURL(this.$store.getters.getFiles[0]);
       }
     },
   },
@@ -44,8 +41,8 @@ export default defineComponent({
       />
       <label v-if="!imageData" class="upload_label">Escolha o arquivo:</label>
       <img class="img_preview" v-if="imageData" :src="imageData" />
-      <h5 class="title" v-if="!store.getters.getFiles">Image Data</h5>
-      <h5 class="title" v-else>{{ this.store.getters.getFiles[0]?.name }}</h5>
+      <h5 class="title" v-if="!$store.getters.getFiles">Image Data</h5>
+      <h5 class="title" v-else>{{ this.$store.getters.getFiles[0]?.name }}</h5>
     </div>
   </div>
   <Handle id="fD__handle-bottom" type="source" :position="Position.Bottom" />
