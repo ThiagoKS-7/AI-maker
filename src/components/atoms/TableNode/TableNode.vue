@@ -41,7 +41,7 @@ export default defineComponent({
       />
       <label v-if="!tableData" class="upload_label">Escolha a tabela:</label>
       <img class="img_preview" v-if="tableData" :src="tableData" />
-      <h5 class="title" v-if="$store.getters.getFiles">Table Data</h5>
+      <h5 class="title" v-if="!$store.getters.getFiles">Table Data</h5>
       <h5 class="title" v-else>{{ this.$store.getters.getFiles[0]?.name }}</h5>
     </div>
   </div>

@@ -130,7 +130,7 @@ nav {
   }
   .node_icon {
     width: 99px;
-    height: 65px;
+    height: 60px;
   }
 }
 .vue-flow__minimap {

@@ -40,7 +40,9 @@ export default defineComponent({
       />
       <label v-if="!imageData" class="upload_label">Escolha o arquivo:</label>
       <img class="img_preview" v-if="imageData" :src="imageData" />
-      <h5 class="title" v-if="!$store.getters.getFiles">Image Data</h5>
+      <h5 class="title" v-if="!$store.getters.getFiles">
+        Image Data - (.PNG, .JPEG & .JPG)
+      </h5>
       <h5 class="title" v-else>{{ $store.getters.getFiles[0]?.name }}</h5>
     </div>
   </div>

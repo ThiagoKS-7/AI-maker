@@ -10,6 +10,7 @@ import {
   MiniMap,
   VueFlow,
   useVueFlow,
+  Controls,
 } from "@braks/vue-flow";
 import { markRaw } from "vue";
 import { useStore } from "@/store";
@@ -89,6 +90,23 @@ export default defineComponent({
       required: true,
     },
   },
+  data() {
+    return {
+      width: 0,
+    };
+  },
+  created() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  unmounted() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      this.width = window.innerWidth;
+    },
+  },
 });
 </script>
 <template>
@@ -98,7 +116,9 @@ export default defineComponent({
       auto-connect
       :nodes="$store.getters.getNodeList"
     >
-      <MiniMap />
+      <div v-show="width >= 500">
+        <MiniMap />
+      </div>
       <Controls />
       <Background :variant="BackgroundVariant.Dots" />
     </VueFlow>

@@ -182,7 +182,7 @@ export default defineComponent({
       this.sidebarNodes = [
         {
           id: 0,
-          nome: "Text Data",
+          nome: "Text Recog. - Tesseract OCR",
           type: "ocr",
           img: OcrIcon,
           class: "vue-flow__node-default",

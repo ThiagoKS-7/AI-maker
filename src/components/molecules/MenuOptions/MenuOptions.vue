@@ -1,17 +1,27 @@
 <template>
   <div v-if="$route.fullPath == '/dashboard'" class="menu_options">
     <ul class="menu_list">
-      <li @click="toggleFile()" @mouseover="toggleFile()">Arquivo</li>
-      <div v-if="clickedFile" class="dropdown">
-        <ul class="dropdown_list">
-          <li>Novo</li>
-          <li>Abrir</li>
-          <li @click="saveFile()">Salvar Como</li>
-          <li>Config.</li>
-        </ul>
+      <div class="drop-file-wrap">
+        <li @click="toggleFile()" @mouseover="toggleFile()">Arquivo</li>
+        <div v-if="clickedFile" class="dropdown">
+          <ul class="dropdown_list">
+            <li>Novo</li>
+            <li>Abrir</li>
+            <li @click="saveFile()">Salvar Como</li>
+            <li>Config.</li>
+          </ul>
+        </div>
       </div>
-      <li @click="toggleEdit()" @mouseover="toggleEdit()">Editar</li>
-      <div v-if="clickedEdit" class="dropdownEdit"></div>
+      <div class="drop-file-wrap">
+        <li @click="toggleEdit()" @mouseover="toggleEdit()">Editar</li>
+        <div v-if="clickedEdit" class="dropdownEdit">
+          <ul class="dropdown_list">
+            <li>Desfazer</li>
+            <li>Refazer</li>
+            <li>Aparência</li>
+          </ul>
+        </div>
+      </div>
       <li>Ferramentas</li>
       <li>Ajuda</li>
     </ul>
@@ -28,6 +38,8 @@ export default defineComponent({
     return {
       clickedFile: false,
       clickedEdit: false,
+      clickedTools: false,
+      clickedHelp: false,
     };
   },
   computed: mapState({
@@ -40,6 +52,24 @@ export default defineComponent({
         this.clickedEdit = false;
       }
     },
+    toggleEdit() {
+      this.clickedEdit = !this.clickedEdit;
+      if (this.clickedEdit) {
+        this.clickedFile = false;
+      }
+    },
+    toggleTools() {
+      this.clickedEdit = !this.clickedEdit;
+      if (this.clickedEdit) {
+        this.clickedFile = false;
+      }
+    },
+    toggleHelp() {
+      this.clickedEdit = !this.clickedEdit;
+      if (this.clickedEdit) {
+        this.clickedFile = false;
+      }
+    },
     saveFile() {
       const temp: any = [];
       this.nodeList.forEach((el: any) => {
@@ -49,12 +79,6 @@ export default defineComponent({
         type: "text/plain;charset=utf-8",
       });
       FileSaver.saveAs(blob, "myflow.aim");
-    },
-    toggleEdit() {
-      this.clickedEdit = !this.clickedEdit;
-      if (this.clickedEdit) {
-        this.clickedFile = false;
-      }
     },
   },
 });
@@ -107,40 +131,39 @@ export default defineComponent({
         box-shadow: 0 4px 15px 0 rgba(10, 214, 229, 0.75);
       }
     }
-    .dropdown {
-      width: 300px;
-      height: fit-content;
-      width: 117px;
-      position: absolute;
-      z-index: 9999;
-      top: 92px;
-      right: 287px;
-      padding: 15px 0px;
-      background-size: 300% 100%;
-      border-radius: 6px;
-      -o-transition: all 0.6s ease-in-out;
-      -webkit-transition: all 0.6s ease-in-out;
-      transition: all 0.6s ease-in-out;
-      height: 300px;
-      background-image: linear-gradient(
-        to left,
-        #0b1c9a,
-        #3403e4,
-        #151c68,
-        #0d409e
-      );
-      height: -moz-fit-content;
-      height: fit-content;
-      @media only screen and (min-width: 10px) and (max-width: 1100px) {
-        right: 145px;
+    .drop-file-wrap {
+      position: relative;
+      width: fit-content;
+      .dropdown {
+        width: 117px;
+        position: absolute;
+        z-index: 9999;
+        top: 30px;
+        left: -44px;
+        padding: 15px 0px;
+        background-size: 300% 100%;
+        border-radius: 6px;
+        -o-transition: all 0.6s ease-in-out;
+        -webkit-transition: all 0.6s ease-in-out;
+        transition: all 0.6s ease-in-out;
+        height: 300px;
+        background-image: linear-gradient(
+          to left,
+          #0b1c9a,
+          #3403e4,
+          #151c68,
+          #0d409e
+        );
+        height: -moz-fit-content;
+        height: fit-content;
+        @media only screen and (min-width: 10px) and (max-width: 1100px) {
+          right: 145px;
+        }
       }
-    }
-    .dropdownEdit {
-      @extend .dropdown;
-      position: absolute;
-      right: 223px;
-      @media only screen and (min-width: 10px) and (max-width: 1100px) {
-        right: 70px;
+      .dropdownEdit {
+        @extend .dropdown;
+        position: absolute;
+        left: -54px;
       }
     }
     .dropdown_list {
