@@ -13,7 +13,7 @@ export default defineComponent({
     };
   },
   created() {
-    console.log(this.$store, this.useStore());
+    console.log(this.$store);
   },
   methods: {
     async previewFile() {
