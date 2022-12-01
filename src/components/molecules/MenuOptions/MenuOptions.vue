@@ -43,7 +43,7 @@ export default defineComponent({
     };
   },
   computed: mapState({
-    nodeList: (state: any) => state.nodeList,
+    nodeList: (state: any) => state.dashboard.nodeList,
   }),
   methods: {
     toggleFile() {
