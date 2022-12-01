@@ -193,6 +193,8 @@ nav {
     display: flex;
     flex-direction: row;
     gap: 5px;
+    overflow: scroll;
+    height: 145px;
   }
 }
 </style>
