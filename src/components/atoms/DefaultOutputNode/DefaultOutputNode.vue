@@ -32,7 +32,6 @@ export default defineComponent({
       }
     },
     async run() {
-      console.log(this.store);
       if (this.store.getters.isReady && this.store.getters.getFormData) {
         try {
           this.store.commit("updateLoader", true);
