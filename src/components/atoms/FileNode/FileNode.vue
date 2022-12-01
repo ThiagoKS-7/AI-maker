@@ -12,6 +12,9 @@ export default defineComponent({
       imageData: "",
     };
   },
+  created() {
+    console.log(this.$store);
+  },
   methods: {
     async previewFile() {
       this.$store.commit("setFiles", this.$refs.myFiles.files);
