@@ -3,6 +3,7 @@ import { Handle, Position } from "@braks/vue-flow";
 </script>
 <script>
 import { defineComponent } from "vue";
+import { useStore } from "@/store"
 
 export default defineComponent({
   name: "TableNode",
@@ -12,6 +13,9 @@ export default defineComponent({
       tableData: "",
     };
   },
+  created() {
+    console.log(this.$store, useStore())
+  }
   methods: {
     async previewFile() {
       this.$store.commit("setFiles", this.$refs.myFiles.files);
@@ -33,19 +37,20 @@ export default defineComponent({
       <input
         v-if="!tableData"
         type="file"
-        id="filepicker"
+        id="tabfilepicker"
         ref="myFiles"
-        accept=".csv, .xls, .xslx"
         class="custom_file_input"
         @change="previewFile()"
       />
-      <label v-if="!tableData" class="upload_label">Escolha a tabela:</label>
+      <label v-if="!tableData" class="upload_label">Escolha o arquivo:</label>
       <img class="img_preview" v-if="tableData" :src="tableData" />
-      <h5 class="title" v-if="!$store.getters.getFiles">Table Data</h5>
-      <h5 class="title" v-else>{{ this.$store.getters.getFiles[0]?.name }}</h5>
+      <h5 class="title" v-if="!$store.getters.getFiles">
+        Table Data - (.CSV, .XLS & .XLSX)
+      </h5>
+      <h5 class="title" v-else>{{ $store.getters.getFiles[0]?.name }}</h5>
     </div>
   </div>
-  <Handle id="fD__handle-bottom" type="source" :position="Position.Bottom" />
+  <Handle id="tD__handle-bottom" type="source" :position="Position.Bottom" />
 </template>
 <style lang="scss" scoped>
 .table_node {
