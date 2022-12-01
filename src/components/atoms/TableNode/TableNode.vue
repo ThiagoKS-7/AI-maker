@@ -3,7 +3,7 @@ import { Handle, Position } from "@braks/vue-flow";
 </script>
 <script>
 import { defineComponent } from "vue";
-import { useStore } from "@/store"
+import { useStore } from "@/store";
 
 export default defineComponent({
   name: "TableNode",
@@ -14,8 +14,8 @@ export default defineComponent({
     };
   },
   created() {
-    console.log(this.$store, useStore())
-  }
+    console.log(this.$store, this.useStore());
+  },
   methods: {
     async previewFile() {
       this.$store.commit("setFiles", this.$refs.myFiles.files);

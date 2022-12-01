@@ -13,8 +13,8 @@ export default defineComponent({
     };
   },
   created() {
-    console.log(this.$store, useStore())
-  }
+    console.log(this.$store, this.useStore());
+  },
   methods: {
     async previewFile() {
       this.$store.commit("setFiles", this.$refs.myFiles.files);
