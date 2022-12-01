@@ -20,7 +20,7 @@ export default defineComponent({
     this.store = useStore();
   },
   computed: mapState({
-    loader: (state) => state.loader,
+    loader: (state) => state.dashboard.loader,
   }),
   methods: {
     changeStroke(color) {
@@ -32,17 +32,18 @@ export default defineComponent({
       }
     },
     async run() {
+      console.log(this.store);
       if (this.store.getters.isReady && this.store.getters.getFormData) {
         try {
           this.store.commit("updateLoader", true);
           await axios
             .post(
-              `${process.env.VUE_APP_API_HOST}${this.store.getters.getApiUrl}`,
+              `http://192.168.1.2:5000${this.store.getters.getApiUrl}`,
               this.store.getters.getFormData,
               {
                 "Response-Type": "blob",
                 "Content-Type": "multipart/form-data",
-                "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
+                "Access-Control-Allow-Origin": `http://192.168.1.2:5000`,
               }
             )
             .then((response) => {

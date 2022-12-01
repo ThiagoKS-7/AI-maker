@@ -160,10 +160,10 @@ export default defineComponent({
     this.getData();
   },
   computed: mapState({
-    loader: (state) => state.loader,
-    nodeList: (state) => state.nodeList,
-    exceptions: (state) => state.exceptions,
-    connections: (state) => state.connections,
+    loader: (state) => state.dashboard.loader,
+    nodeList: (state) => state.dashboard.nodeList,
+    exceptions: (state) => state.dashboard.exceptions,
+    connections: (state) => state.dashboard.connections,
   }),
   watch: {
     nodeList() {
@@ -266,6 +266,7 @@ export default defineComponent({
       this.message = message;
     },
     changeStroke(color) {
+      console.log(this.nodeList);
       for (let i = 0; i < this.nodeList.length; i++) {
         if (this.form.cons[i].style.length) {
           this.form.cons[
@@ -288,6 +289,7 @@ export default defineComponent({
       }
     },
     compile() {
+      console.log("COMPILE");
       try {
         this.getData();
         this.$store.commit("updateLoader", true);
