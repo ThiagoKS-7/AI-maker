@@ -26,42 +26,41 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.default {
-  width: 400px;
-  padding: 6px 8px;
-  background: #030170;
-  border-radius: 10px;
-  margin: 0 10px;
+.basic_button {
+  width: 350px;
+  height: 45px;
+  margin: 0 5px;
   cursor: default;
   text-transform: capitalize;
+  border-radius: 10px;
+  @media only screen and (min-width: 0px) and (max-width: 400px) {
+    width: 420px;
+    height: 69px;
+    margin: 0 10px;
+    padding: 6px 8px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.default {
+  @extend .basic_button;
+  background: #030170;
   &:hover {
-    cursor: pointer;
     background: #0d0add;
   }
 }
 .danger {
-  width: 400px;
-  padding: 6px 8px;
+  @extend .basic_button;
   background: #831502;
-  border-radius: 10px;
-  margin: 0 10px;
-  text-transform: capitalize;
-  cursor: default;
   &:hover {
-    cursor: pointer;
     background: #eb2704;
   }
 }
 .success {
-  width: 400px;
-  padding: 6px 8px;
+  @extend .basic_button;
   background: #02692a;
-  border-radius: 10px;
-  margin: 0 10px;
-  text-transform: capitalize;
-  cursor: default;
   &:hover {
-    cursor: pointer;
     background: #039946;
   }
 }

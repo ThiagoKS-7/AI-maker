@@ -266,7 +266,6 @@ export default defineComponent({
       this.message = message;
     },
     changeStroke(color) {
-      console.log(this.nodeList);
       for (let i = 0; i < this.nodeList.length; i++) {
         if (this.form.cons[i].style.length) {
           this.form.cons[
@@ -289,7 +288,6 @@ export default defineComponent({
       }
     },
     compile() {
-      console.log("COMPILE");
       try {
         this.getData();
         this.$store.commit("updateLoader", true);
@@ -297,8 +295,6 @@ export default defineComponent({
         this.$store.commit("clearException");
         this.$store.commit("setReady", true);
         this.changeStroke("lime");
-        //TODO: Arrumar validação do compiler
-        //this.validateCompilation();
       } catch (e) {
         if (this.message) {
           console.error(this.message);
