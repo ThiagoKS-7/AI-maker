@@ -47,104 +47,8 @@ export default defineComponent({
       sidebarNodes: [],
       tabs: [
         {
-          title: "init.aim",
-          value: [
-            {
-              type: "tD",
-              dimensions: {
-                width: 102,
-                height: 102,
-              },
-              handleBounds: {
-                source: [
-                  {
-                    id: "tD__handle-bottom",
-                    position: "bottom",
-                    x: 46.99998643663194,
-                    y: 98.00001356336806,
-                    width: 8,
-                    height: 8,
-                  },
-                ],
-              },
-              computedPosition: {
-                x: 720,
-                y: 321.1111111111111,
-                z: 0,
-              },
-              id: "tD1",
-              position: {
-                x: 720,
-                y: 321.1111111111111,
-              },
-              label: "tD node",
-            },
-          ],
-        },
-        {
-          title: "test.aim",
-          value: [
-            {
-              type: "input",
-              dimensions: {
-                width: 100,
-                height: 100,
-              },
-              handleBounds: {
-                source: [
-                  {
-                    id: "in0__handle-bottom",
-                    position: "bottom",
-                    x: 45.99999321831597,
-                    y: 95,
-                    width: 8,
-                    height: 8,
-                  },
-                ],
-              },
-              computedPosition: {
-                x: 411.1111111111111,
-                y: 321.1111111111111,
-                z: 0,
-              },
-              id: "in0",
-              position: {
-                x: 411.1111111111111,
-                y: 321.1111111111111,
-              },
-              label: "input node",
-            },
-            {
-              type: "tD",
-              dimensions: {
-                width: 102,
-                height: 102,
-              },
-              handleBounds: {
-                source: [
-                  {
-                    id: "tD__handle-bottom",
-                    position: "bottom",
-                    x: 46.99998643663194,
-                    y: 98.00001356336806,
-                    width: 8,
-                    height: 8,
-                  },
-                ],
-              },
-              computedPosition: {
-                x: 720,
-                y: 321.1111111111111,
-                z: 0,
-              },
-              id: "tD1",
-              position: {
-                x: 720,
-                y: 321.1111111111111,
-              },
-              label: "tD node",
-            },
-          ],
+          title: "demo.aim",
+          value: [],
         },
       ],
       selectedIndex: 0,
@@ -204,7 +108,7 @@ export default defineComponent({
         {
           id: 3,
           nome: "SkLearn - Decision Tree",
-          type: "default",
+          type: "dT",
           img: DecIcon,
           class: "vue-flow__node-default",
         },
