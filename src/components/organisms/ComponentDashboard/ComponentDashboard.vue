@@ -2,6 +2,7 @@
 import TableNode from "@/components/atoms/TableNode/TableNode.vue";
 import FileNode from "@/components/atoms/FileNode/FileNode.vue";
 import ObjDetectionNode from "@/components/atoms/ObjDetectionNode/ObjDetectionNode.vue";
+import SkDecTreeNode from "@/components/atoms/SkDecTreeNode/SkDecTreeNode.vue";
 import DefaultOutputNode from "@/components/atoms/DefaultOutputNode/DefaultOutputNode.vue";
 import OcrNode from "@/components/atoms/OcrNode/OcrNode.vue";
 import {
@@ -25,6 +26,7 @@ const { onConnect, addEdges, nodes, addNodes, project } = useVueFlow({
   minZoom: 0.6,
   nodeTypes: {
     tD: markRaw(TableNode),
+    dT: markRaw(SkDecTreeNode),
     fD: markRaw(FileNode),
     oD: markRaw(ObjDetectionNode),
     ocr: markRaw(OcrNode),
@@ -109,6 +111,7 @@ export default defineComponent({
   },
 });
 </script>
+
 <template>
   <div class="dndflow mask" @drop="onDrop">
     <VueFlow
