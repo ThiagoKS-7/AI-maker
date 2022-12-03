@@ -77,7 +77,7 @@ export default defineComponent({
         @click="run()"
       />
       <img v-else class="preview" :src="imageData" @click="run()" />
-      <h5 class="title">Output</h5>
+      <h5 class="title">Saída</h5>
     </div>
   </div>
 </template>

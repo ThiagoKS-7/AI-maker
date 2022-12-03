@@ -63,7 +63,7 @@ export default defineComponent({
           </g>
         </svg>
       </section>
-      <h5 class="title">YOLOv3 Obj-Det</h5>
+      <h5 class="title">YOLOv3 Obj-Detc</h5>
     </div>
   </div>
   <Handle id="oD__handle-bottom" type="source" :position="Position.Bottom" />
@@ -134,7 +134,7 @@ export default defineComponent({
     top: 20%;
     left: 33%;
     opacity: 0.7;
-    border: 4px solid #eecda3;
+    border: 4px solid #0400fe;
     border-top: 4px solid #fe00f2;
     border-radius: 50%;
     filter: drop-shadow(0 0 0.4em cyan);
