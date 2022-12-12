@@ -37,12 +37,12 @@ export default defineComponent({
           this.store.commit("updateLoader", true);
           await axios
             .post(
-              `http://192.168.1.2:5000${this.store.getters.getApiUrl}`,
+              `${process.env.VUE_APP_API_HOST}${this.store.getters.getApiUrl}`,
               this.store.getters.getFormData,
               {
                 "Response-Type": "blob",
                 "Content-Type": "multipart/form-data",
-                "Access-Control-Allow-Origin": `http://192.168.1.2:5000`,
+                "Access-Control-Allow-Origin": "*",
               }
             )
             .then((response) => {
