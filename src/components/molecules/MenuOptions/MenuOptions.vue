@@ -6,7 +6,15 @@
         <div v-if="clickedFile" class="dropdown">
           <ul class="dropdown_list">
             <li>Novo</li>
-            <li>Abrir</li>
+            <li class="opener">
+              <input
+                type="file"
+                id="file_open"
+                ref="myFiles"
+                class="file_open"
+              />
+              <label for="file_open" class="label_open"> Abrir </label>
+            </li>
             <li @click="saveFile()">Salvar Como</li>
             <li>Config.</li>
           </ul>
@@ -22,8 +30,18 @@
           </ul>
         </div>
       </div>
-      <li>Ferramentas</li>
-      <li>Ajuda</li>
+      <div class="drop-file-wrap">
+        <li @click="toggleHelp()" @mouseover="toggleHelp()">Ajuda</li>
+        <div v-if="clickedHelp" class="dropdownHelp">
+          <ul class="dropdown_list">
+            <li>Tutoriais em Vídeo</li>
+            <li>Documentação</li>
+            <li>Relatar um problema</li>
+            <li>Exibir Licença</li>
+            <li>Sobre</li>
+          </ul>
+        </div>
+      </div>
     </ul>
   </div>
 </template>
@@ -50,12 +68,14 @@ export default defineComponent({
       this.clickedFile = !this.clickedFile;
       if (this.clickedFile) {
         this.clickedEdit = false;
+        this.clickedHelp = false;
       }
     },
     toggleEdit() {
       this.clickedEdit = !this.clickedEdit;
       if (this.clickedEdit) {
         this.clickedFile = false;
+        this.clickedHelp = false;
       }
     },
     toggleTools() {
@@ -65,9 +85,10 @@ export default defineComponent({
       }
     },
     toggleHelp() {
-      this.clickedEdit = !this.clickedEdit;
-      if (this.clickedEdit) {
+      this.clickedHelp = !this.clickedHelp;
+      if (this.clickedHelp) {
         this.clickedFile = false;
+        this.clickedEdit = false;
       }
     },
     saveFile() {
@@ -165,12 +186,36 @@ export default defineComponent({
         position: absolute;
         left: -54px;
       }
+      .dropdownHelp {
+        @extend .dropdown;
+        position: absolute;
+        width: 150px;
+        left: -85px;
+      }
     }
     .dropdown_list {
       list-style: none;
       margin: 0;
       padding: 0;
       text-align: center;
+      .opener {
+        position: relative;
+        cursor: pointer;
+        .file_open {
+          opacity: 0;
+          position: absolute;
+          left: -114px;
+          width: 230px;
+          cursor: pointer;
+          display: inline-block;
+          overflow: hidden;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          background: transparent;
+          background-size: 60px 60px;
+        }
+      }
     }
   }
 }
