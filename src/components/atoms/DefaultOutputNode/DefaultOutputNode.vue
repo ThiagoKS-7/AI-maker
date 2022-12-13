@@ -35,18 +35,22 @@ export default defineComponent({
       if (this.store.getters.isReady && this.store.getters.getFormData) {
         try {
           this.store.commit("updateLoader", true);
+          axios.defaults.baseURL = `${process.env.VUE_APP_API_HOST}`;
           await axios
             .post(
-              `${process.env.VUE_APP_API_HOST}${this.store.getters.getApiUrl}`,
+              `${this.store.getters.getApiUrl}`,
               this.store.getters.getFormData,
               {
                 "Response-Type": "blob",
                 "Content-Type": "multipart/form-data",
-                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Origin": `${process.env.VUE_APP_API_HOST}`,
+                "Access-Control-Allow-Methods": "POST, GET, HEAD, OPTIONS",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Max-Age": "86400",
               }
             )
             .then((response) => {
-              this.imageData = "data:image.png;base64," + response.data;
+              this.imageData = "data:image.png;base64," + response.data.data;
             })
             .catch((err) => {
               console.error(err);
