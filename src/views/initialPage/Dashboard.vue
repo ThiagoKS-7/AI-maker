@@ -8,12 +8,12 @@
     <ul class="tab_list">
       <li
         class="tab_item"
-        v-for="(tab, index) in tabs"
+        v-for="(tab, index) in $store.getters.getTabs"
         :key="tab.title"
         @click="selectTab(index)"
         :class="[{ tab_selected: index == selectedIndex }]"
       >
-        <i @click="tabs.pop(tab)" class="close_icon">X</i>
+        <i @click="$store.getters.getTabs.splice(selectedIndex, 1)" class="close_icon">X</i>
         {{ tab.title }}
       </li>
     </ul>
@@ -71,15 +71,15 @@ export default defineComponent({
   }),
   watch: {
     nodeList() {
-      this.tabs[this.selectedIndex].value = this.nodeList;
+      this.$store.getters.getTabs[this.selectedIndex].value = this.nodeList;
     },
   },
   methods: {
     selectTab(i) {
       this.selectedIndex = i;
-      this.tabs.forEach((tab, index) => {
+      this.$store.getters.getTabs.forEach((tab, index) => {
         tab.isActive = index === i;
-        this.$store.commit("setNodeList", this.tabs[this.selectedIndex].value);
+        this.$store.commit("setNodeList", this.$store.getters.getTabs[this.selectedIndex].value);
       });
     },
     getSidebarNodes() {
@@ -130,6 +130,7 @@ export default defineComponent({
     },
     getData() {
       this.form.cons = document.getElementsByClassName("vue-flow__edge-path");
+      this.$store.commit("setTabs", this.tabs);
     },
     checkNodeType(i) {
       const noOutput = this.compiler[this.compiler.length - 1] != "*";
