@@ -7,6 +7,7 @@ export interface DashState {
   nodeList: Array<object>;
   connections: string;
   loader: boolean;
+  tabs: Array<object>;
 }
 
 export const DashboardModule = {
@@ -19,6 +20,7 @@ export const DashboardModule = {
     nodeList: [],
     connections: "",
     loader: false,
+    tabs: [],
   }),
   getters: {
     getFiles: (state: { files: any }) => {
@@ -44,6 +46,9 @@ export const DashboardModule = {
     },
     getLoader: (state: { loader: any }) => {
       return state.loader;
+    },
+    getTabs: (state: { tabs: any }) => {
+      return state.tabs;
     },
   },
   mutations: {
@@ -85,6 +90,12 @@ export const DashboardModule = {
     },
     updateLoader(state: { loader: any }, value: any) {
       state.loader = value;
+    },
+    setTabs(state: { tabs: any }, value: any) {
+      state.tabs = value;
+    },
+    pushTabs(state: { tabs: any }, value: any) {
+      state.tabs.push(value);
     },
   },
 };
