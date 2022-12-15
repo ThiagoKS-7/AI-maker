@@ -13,7 +13,11 @@
         @click="selectTab(index)"
         :class="[{ tab_selected: index == selectedIndex }]"
       >
-        <i @click="$store.getters.getTabs.splice(selectedIndex, 1)" class="close_icon">X</i>
+        <i
+          @click="$store.getters.getTabs.splice(selectedIndex, 1)"
+          class="close_icon"
+          >X</i
+        >
         {{ tab.title }}
       </li>
     </ul>
@@ -79,7 +83,10 @@ export default defineComponent({
       this.selectedIndex = i;
       this.$store.getters.getTabs.forEach((tab, index) => {
         tab.isActive = index === i;
-        this.$store.commit("setNodeList", this.$store.getters.getTabs[this.selectedIndex].value);
+        this.$store.commit(
+          "setNodeList",
+          this.$store.getters.getTabs[this.selectedIndex].value
+        );
       });
     },
     getSidebarNodes() {
