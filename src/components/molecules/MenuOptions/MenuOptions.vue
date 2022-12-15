@@ -5,7 +5,7 @@
         <li @click="toggleFile()" @mouseover="toggleFile()">Arquivo</li>
         <div v-if="clickedFile" class="dropdown">
           <ul class="dropdown_list">
-            <li>Novo</li>
+            <li @click="newFile()">Novo</li>
             <li class="opener">
               <input
                 type="file"
@@ -49,7 +49,7 @@
 import FileSaver from "file-saver";
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
-
+let id = 0;
 export default defineComponent({
   name: "MenuOptions",
   data() {
@@ -64,6 +64,9 @@ export default defineComponent({
     nodeList: (state: any) => state.dashboard.nodeList,
   }),
   methods: {
+    getId() {
+      return id++;
+    },
     toggleFile() {
       this.clickedFile = !this.clickedFile;
       if (this.clickedFile) {
@@ -100,6 +103,13 @@ export default defineComponent({
         type: "text/plain;charset=utf-8",
       });
       FileSaver.saveAs(blob, "myflow.aim");
+    },
+    newFile() {
+      console.log("AQUI");
+      this.$store.commit("setTabs", [
+        ...this.$store.getters.getTabs,
+        { title: "MyFile" + this.getId() + ".aim", value: [], isActive: true },
+      ]);
     },
   },
 });
