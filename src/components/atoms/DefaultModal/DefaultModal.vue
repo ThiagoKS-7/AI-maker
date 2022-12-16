@@ -12,12 +12,12 @@
           }"
         >
           <div class="header">
-            <h3 style="margin:0" v-if="title">{{title}}</h3>
+            <h3 style="margin: 0" v-if="title">{{ title }}</h3>
             <div class="first-row">
-            <i @click.self="$emit('closeModal', false)" class="modal-close">
-              X
-            </i>
-          </div>
+              <i @click.self="$emit('closeModal', false)" class="modal-close">
+                X
+              </i>
+            </div>
           </div>
           <div>
             <slot></slot>
@@ -111,7 +111,7 @@ export default defineComponent({
     justify-content: space-between;
 
     padding: 13px 17px;
-    background: linear-gradient(to right, #0361f8,rgb(13, 33, 102), #190564, );
+    background: linear-gradient(to right, #0361f8, rgb(13, 33, 102), #190564);
   }
   .headless_container {
     margin: 0px auto;
