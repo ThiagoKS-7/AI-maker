@@ -62,6 +62,7 @@ export default defineComponent({
       message: "",
       form: {
         cons: "",
+        fileName: "",
         nameModal: true,
       },
     };

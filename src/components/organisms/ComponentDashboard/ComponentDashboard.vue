@@ -83,11 +83,13 @@ const onDrop = (event: any) => {
 import { defineComponent } from "vue";
 import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
 import DefaultModal from "@/components/atoms/DefaultModal/DefaultModal.vue";
+import DefaultInput from "@/components/atoms/DefaultInput/DefaultInput.vue";
 export default defineComponent({
   name: "ComponentDashboard",
   components: {
     Sidebar,
     DefaultModal,
+    DefaultInput,
   },
   props: {
     form: {
@@ -101,6 +103,7 @@ export default defineComponent({
   data() {
     return {
       width: 0,
+      test: "",
     };
   },
   created() {
@@ -143,6 +146,18 @@ export default defineComponent({
       title="Novo Arquivo:"
       @closeModal="$emit('closeModal', $event)"
     >
+      <form>
+        <v-row sm="12">
+          <div style="margin-top: 2em;">
+            <DefaultInput
+              type="text"
+              label="Nome do seu arquivo"
+              placeholder="Digite o nome do seu arquivo"
+              v-model="test"
+            />
+          </div>
+        </v-row>
+      </form>
     </DefaultModal>
   </div>
 </template>
