@@ -1,8 +1,9 @@
 <template>
   <div class="dash-wrapper">
     <div class="ldr_wrapper" v-show="loader">
-      <div class="loader"></div>
-      <div class="loader2"></div>
+      <div class="center">
+        <div class="planet"></div>
+      </div>
       <h4 class="ldr_text">Loading...</h4>
     </div>
     <ul class="tab_list">
@@ -22,7 +23,9 @@
       </li>
     </ul>
     <ComponentDashboard
+      :form="form"
       :sidebarNodes="sidebarNodes"
+      @closeModal="form.nameModal = false"
       @compile="compile()"
       @removeOne="removeOne()"
       @clearAll="clearAll()"
@@ -59,6 +62,7 @@ export default defineComponent({
       message: "",
       form: {
         cons: "",
+        nameModal: true,
       },
     };
   },
@@ -289,58 +293,121 @@ export default defineComponent({
     }
   }
   .ldr_wrapper {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    background: #100e1b;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
     width: 100%;
-    opacity: 0.7;
     height: 100%;
-    z-index: 99999;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    display: table;
+    transition: opacity 0.3s ease;
     .ldr_text {
       position: absolute;
-      top: 47%;
-      font-size: 20px;
-      @media only screen and (max-width: 1869px) {
-        left: 47%;
-      }
-      @media only screen and (min-width: 1870px) {
-        left: 50%;
-      }
+      top: 45.6vh;
+      font-size: 2vw;
+      left: 45.6vw;
     }
-    .loader {
+    .center {
+      height: inherit;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .planet {
+      display: block;
+      width: 12vw;
+      height: 12vw;
+      position: relative;
+      transform-style: preserve-3d;
+      border-radius: 50%;
+      background: #fcc96b;
+      background: rgb(252, 201, 107);
+      background: linear-gradient(
+        180deg,
+        rgb(234, 16, 187) 0%,
+        rgb(234, 16, 187) 15%,
+        rgb(52, 241, 200) 15%,
+        rgb(0, 249, 146) 19%,
+        rgb(234, 16, 187) 19%,
+        rgb(234, 16, 187) 22%,
+        rgb(52, 241, 200) 22%,
+        rgb(0, 249, 146) 28%,
+        rgb(234, 16, 187) 28%,
+        rgb(234, 16, 187) 31%,
+        rgb(234, 16, 187) 33%,
+        rgb(234, 16, 187) 36%,
+        rgb(95, 5, 117) 36%,
+        rgb(95, 5, 117) 48%,
+        rgb(234, 16, 187) 48%,
+        rgb(234, 16, 187) 55%,
+        rgb(124, 6, 153) 55%,
+        rgb(95, 5, 117) 66%,
+        rgb(234, 16, 187) 66%,
+        rgb(234, 16, 187) 70%,
+        rgb(95, 5, 117) 70%,
+        rgb(95, 5, 117) 73%,
+        rgb(234, 16, 187) 73%,
+        rgb(234, 16, 187) 82%,
+        rgb(95, 5, 117) 82%,
+        rgb(0, 249, 146) 86%,
+        rgb(234, 16, 187) 86%
+      );
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25),
+        inset 8px -4px 6px rgba(199, 128, 0, 0.5),
+        inset -8px 4px 8px rgba(255, 235, 199, 0.5),
+        inset 20px -5px 12px rgb(52, 2, 82),
+        0 0 100px rgba(255, 255, 255, 0.35);
+      transform: rotateZ(-15deg);
+    }
+
+    .planet::before {
       position: absolute;
-      top: 25%;
-      @media only screen and (max-width: 1869px) {
-        left: 48%;
-      }
-      @media only screen and (min-width: 1870px) {
-        left: 50%;
-      }
-      border: 16px solid #f3f3f3;
-      border-radius: 70%;
-      filter: drop-shadow(0 0 0.4em rgb(0, 255, 242));
-      border-top: 16px solid rgb(15, 2, 75);
-      border-left: 16px solid rgb(223, 7, 7);
-      border-right: 16px solid rgb(25, 223, 7);
-      border-bottom: 16px solid rgb(5, 0, 70);
-      width: 120px;
-      height: 120px;
-      -webkit-animation: 1.2s linear 0s infinite spin;
-      animation: 1.2s linear 0s infinite spin;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: 16px solid #48286d;
+      border-top-width: 0;
+      border-radius: 50%;
+      box-shadow: 0 -4px 0 #1d055e;
+      animation: rings1 0.8s infinite linear;
     }
-    .loader2 {
-      @extend .loader;
-      filter: drop-shadow(0 0 0.4em rgb(183, 0, 255));
-      @media only screen and (max-width: 1869px) {
-        left: 37%;
+
+    .planet::after {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: 6px solid #6f24c5;
+      border-image: linear-gradient(to left, rgb(100, 45, 151), #0361e4, #616efe);
+      border-top-width: 0;
+      border-radius: 50%;
+      box-shadow: 0 -2px 0 rgb(95, 5, 117);
+      animation: rings2 0.8s infinite linear;
+    }
+
+    @keyframes rings1 {
+      0% {
+        transform: rotateX(65deg) rotateZ(0deg) scale(1.75);
       }
-      @media only screen and (min-width: 1870px) {
-        left: 46%;
+      100% {
+        transform: rotateX(65deg) rotateZ(360deg) scale(1.75);
       }
-      -webkit-animation: 1.2s linear 0s reverse infinite spin;
-      animation: 1.2s linear 0s reverse infinite spin;
+    }
+
+    @keyframes rings2 {
+      0% {
+        transform: rotateX(65deg) rotateZ(0deg) scale(1.7);
+      }
+      100% {
+        transform: rotateX(65deg) rotateZ(360deg) scale(1.7);
+      }
     }
 
     @-webkit-keyframes spin {
