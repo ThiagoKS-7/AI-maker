@@ -39,6 +39,8 @@
 AI maker will be a desktop application that agregates cloud services, AI in-cloud and local training, model deployment,
 mobile deployment & documentations and tutorials about machine learning.
 
+https://www.notion.so/Issue-31-Ajustar-responsividade-dos-bot-es-0db280ae7c3f4b928f5b3ea0b0cd8d8c?showMoveTo=true
+
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 ### Project setup
