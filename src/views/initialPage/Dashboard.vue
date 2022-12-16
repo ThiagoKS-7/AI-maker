@@ -358,8 +358,7 @@ export default defineComponent({
       box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25),
         inset 8px -4px 6px rgba(199, 128, 0, 0.5),
         inset -8px 4px 8px rgba(255, 235, 199, 0.5),
-        inset 20px -5px 12px rgb(52, 2, 82),
-        0 0 100px rgba(255, 255, 255, 0.35);
+        inset 20px -5px 12px rgb(52, 2, 82), 0 0 100px rgba(255, 255, 255, 0.35);
       transform: rotateZ(-15deg);
     }
 
@@ -385,7 +384,12 @@ export default defineComponent({
       height: 100%;
       box-sizing: border-box;
       border: 6px solid #6f24c5;
-      border-image: linear-gradient(to left, rgb(100, 45, 151), #0361e4, #616efe);
+      border-image: linear-gradient(
+        to left,
+        rgb(100, 45, 151),
+        #0361e4,
+        #616efe
+      );
       border-top-width: 0;
       border-radius: 50%;
       box-shadow: 0 -2px 0 rgb(95, 5, 117);
