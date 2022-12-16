@@ -82,12 +82,18 @@ const onDrop = (event: any) => {
 <script lang="ts">
 import { defineComponent } from "vue";
 import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
+import DefaultModal from "@/components/atoms/DefaultModal/DefaultModal.vue";
 export default defineComponent({
   name: "ComponentDashboard",
   components: {
     Sidebar,
+    DefaultModal,
   },
   props: {
+    form: {
+      type: Object,
+      required: true,
+    },
     sidebarNodes: {
       required: true,
     },
@@ -132,6 +138,12 @@ export default defineComponent({
       @removeOne="$emit('removeOne', $event)"
       @clearAll="$emit('clearAll', $event)"
     />
+    <DefaultModal
+      :modal="form.nameModal"
+      title="Novo Arquivo:"
+      @closeModal="$emit('closeModal', $event)"
+    >
+    </DefaultModal>
   </div>
 </template>
 <style lang="scss" scoped>
