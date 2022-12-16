@@ -148,7 +148,7 @@ export default defineComponent({
     >
       <form>
         <v-row sm="12">
-          <div style="margin-top: 2em;">
+          <div style="margin-top: 2em">
             <DefaultInput
               type="text"
               label="Nome do seu arquivo"
