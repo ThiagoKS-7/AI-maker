@@ -105,11 +105,7 @@ export default defineComponent({
       FileSaver.saveAs(blob, "myflow.aim");
     },
     newFile() {
-      console.log("AQUI");
-      this.$store.commit("setTabs", [
-        ...this.$store.getters.getTabs,
-        { title: "MyFile" + this.getId() + ".aim", value: [], isActive: true },
-      ]);
+      this.$store.commit("setNameModal", true);
     },
   },
 });
