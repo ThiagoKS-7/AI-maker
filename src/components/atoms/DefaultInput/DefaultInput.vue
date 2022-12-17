@@ -1,13 +1,22 @@
 <template>
-  <div :vshow="type == 'text' || type == 'number'" class="input-container">
-    <label v-if="label" class="input-label">{{ label }}</label>
+  <div class="input-container" :class="{ flex: inline }">
+    <label class="input-label" v-if="label">
+      {{ label }}
+    </label>
     <input
-      class="input-default"
-      :type="type"
-      :placeholder="placeholder"
       :value="value"
+      :type="type"
+      :tabindex="tabindex"
+      :style="{ width: width }"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :maxlength="maxlength"
+      :class="newStyle"
       @input="changeText($event)"
-      @change="$emit('change', $event)"
+      @click="$emit('click', $event)"
+      @keypress="onlyNumber($event)"
+      @blur="$emit('blur', $event)"
+      @keyup="$emit('keyup', $event)"
     />
   </div>
 </template>
@@ -16,28 +25,80 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "TitleDefault",
+  name: "DefaultInput",
   props: {
-    type: {
-      type: String,
-      required: true,
-    },
-    placeholder: {
-      type: String,
-      required: false,
-    },
     value: {
-      type: [String, Number],
-      required: true,
+      required: false,
     },
     label: {
       type: String,
       required: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    noSubmitWithEnter: {
+      type: Boolean,
+    },
+    maxlength: {
+      type: Number,
+    },
+    tabindex: {
+      type: Number,
+      required: false,
+    },
+    errorMessage: {
+      type: String,
+      default: "Campo obrigatório",
+    },
+    valid: {
+      type: Boolean,
+      default: true,
+    },
+    placeholder: {
+      type: String,
+    },
+    type: {
+      type: String,
+      required: false,
+      default: "submit",
+    },
+    contentFormat: {
+      type: String,
+      default: "",
+    },
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+    width: {
+      type: String,
+      default: "100%",
+    },
+    newStyle: {
+      type: String,
+      default: "default",
+    },
   },
   methods: {
     changeText(event: any) {
-      this.$emit("input", event.target.value);
+      this.$emit("input", event);
+    },
+    onlyNumber(value: any) {
+      let keyCode = value.keyCode ? value.keyCode : value.which;
+      if (this.noSubmitWithEnter && value.key == "Enter") {
+        value.preventDefault();
+      }
+      if (this.contentFormat === "number") {
+        if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {
+          value.preventDefault();
+        }
+      } else if (this.contentFormat === "integer") {
+        if (keyCode < 48 || keyCode > 57) {
+          value.preventDefault();
+        }
+      }
     },
   },
 });
@@ -54,19 +115,26 @@ export default defineComponent({
     margin-left: 6px;
     margin-bottom: 5px;
   }
-  .input-default {
+  .default {
     width: fit-content;
+    font-size: small;
+    padding: 0 13px;
+    background: #081326;
+    color: white;
+    border: 2px solid rgb(24, 93, 172);
+    min-height: 25px;
+    border-radius: 4px;
+  }
+  .large {
     width: fit-content;
     font-size: 20px;
+    padding: 0 0 0 5px;
     background: #081326;
     color: white;
     border: 2px solid rgb(24, 93, 172);
     min-height: 45px;
-    min-width: 400px;
+    min-width: 422px;
     border-radius: 4px;
-    &:focus {
-      border-color: red;
-    }
   }
 }
 </style>

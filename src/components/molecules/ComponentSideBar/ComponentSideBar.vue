@@ -1,11 +1,24 @@
 <template>
   <aside class="sidebar">
     <div class="button-header">
-      <Button @click="$emit('compile', $event)" class="success"> Run </Button>
-      <Button @click="$emit('removeOne', $event)"> Delete 1 </Button>
-      <Button @click="$emit('clearAll', $event)" class="danger">
-        Clear all
-      </Button>
+      <Button
+        title="Inicio"
+        type="submit"
+        newStyle="hover-green"
+        @click="$emit('compile', $event)"
+      />
+      <Button
+        title="Del. 2"
+        type="submit"
+        newStyle="hover-blue"
+        @click="$emit('removeOne', $event)"
+      />
+      <Button
+        title="Limpar"
+        type="submit"
+        newStyle="hover-red"
+        @click="$emit('clearAll', $event)"
+      />
     </div>
     <h3 class="description">Nodes Disponíveis</h3>
     <NodeList

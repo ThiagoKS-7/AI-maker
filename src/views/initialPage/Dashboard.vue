@@ -14,21 +14,19 @@
         @click="selectTab(index)"
         :class="[{ tab_selected: index == selectedIndex }]"
       >
-        <i
-          @click="$store.getters.getTabs.splice(selectedIndex, 1)"
-          class="close_icon"
-          >X</i
-        >
+        <i @click="deleteTab(index)" class="close_icon">X</i>
         {{ tab.title }}
       </li>
     </ul>
     <ComponentDashboard
       :form="form"
       :sidebarNodes="sidebarNodes"
-      @closeModal="form.nameModal = false"
+      @closeModal="closeModal()"
       @compile="compile()"
       @removeOne="removeOne()"
       @clearAll="clearAll()"
+      @click-name-confirm="newFile($event)"
+      @change-file.stop="form.fileName = $event.target.value"
     />
   </div>
 </template>
@@ -59,11 +57,11 @@ export default defineComponent({
         },
       ],
       selectedIndex: 0,
+      eventCount: 0,
       message: "",
       form: {
         cons: "",
         fileName: "",
-        nameModal: true,
       },
     };
   },
@@ -233,12 +231,37 @@ export default defineComponent({
     back() {
       return this.$router.push("/");
     },
+    closeModal() {
+      this.$store.commit("setNameModal", false);
+    },
+    deleteTab(index) {
+      this.selectTab(index);
+      this.$store.getters.getTabs.splice(index, 1);
+    },
+    newFile() {
+      if (this.eventCount == 1) {
+        if (this.form.fileName.length > 0) {
+          this.$store.commit("pushTabs", {
+            title: this.form.fileName + ".aim",
+            value: [],
+            isActive: true,
+          });
+          this.$store.commit("setCurrentFileName", this.form.fileName);
+          this.selectTab(this.$store.getters.getTabs.length - 1);
+          this.closeModal();
+        } else {
+          alert("Erro! Digite o nome do arquivo antes de continuar");
+        }
+      } else {
+        this.eventCount = 0;
+      }
+      this.eventCount++;
+    },
   },
 });
 </script>
 <style lang="scss" scoped>
 .dash-wrapper {
-  height: 100%;
   position: relative;
   @media only screen and (min-width: 10px) and (max-width: 1100px) {
     height: 90%;
