@@ -16,7 +16,7 @@
       <img
         v-if="img"
         :style="{ marginRight: !!title ? '5px' : '0px' }"
-        :src="require(`./assets/${img}`)"
+        :src="require(`@/assets/${img}`)"
       />
       <i v-if="icon" :class="icon"></i>
       <span class="title" v-if="title">{{ title }}</span>
