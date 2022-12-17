@@ -25,10 +25,11 @@
     <ComponentDashboard
       :form="form"
       :sidebarNodes="sidebarNodes"
-      @closeModal="form.nameModal = false"
+      @closeModal="closeModal()"
       @compile="compile()"
       @removeOne="removeOne()"
       @clearAll="clearAll()"
+      @click-name-confirm="newFile()"
     />
   </div>
 </template>
@@ -63,7 +64,6 @@ export default defineComponent({
       form: {
         cons: "",
         fileName: "",
-        nameModal: true,
       },
     };
   },
@@ -233,12 +233,25 @@ export default defineComponent({
     back() {
       return this.$router.push("/");
     },
+    closeModal() {
+      this.$store.commit("setNameModal", false);
+    },
+    newFile() {
+      if (this.form.fileName.length > 0) {
+        this.$store.commit("pushTabs", {
+          title: this.form.fileName + ".aim",
+          value: [],
+          isActive: true,
+        });
+      } else {
+        alert("Erro! Digite o nome do arquivo antes de continuar");
+      }
+    },
   },
 });
 </script>
 <style lang="scss" scoped>
 .dash-wrapper {
-  height: 100%;
   position: relative;
   @media only screen and (min-width: 10px) and (max-width: 1100px) {
     height: 90%;

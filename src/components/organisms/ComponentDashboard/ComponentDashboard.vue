@@ -84,11 +84,13 @@ import { defineComponent } from "vue";
 import Sidebar from "@/components/molecules/ComponentSideBar/ComponentSideBar.vue";
 import DefaultModal from "@/components/atoms/DefaultModal/DefaultModal.vue";
 import DefaultInput from "@/components/atoms/DefaultInput/DefaultInput.vue";
+import Button from "@/components/atoms/DefaultButton/DefaultButton.vue";
 export default defineComponent({
   name: "ComponentDashboard",
   components: {
     Sidebar,
     DefaultModal,
+    Button,
     DefaultInput,
   },
   props: {
@@ -103,7 +105,7 @@ export default defineComponent({
   data() {
     return {
       width: 0,
-      test: "",
+      teste: "",
     };
   },
   created() {
@@ -142,21 +144,37 @@ export default defineComponent({
       @clearAll="$emit('clearAll', $event)"
     />
     <DefaultModal
-      :modal="form.nameModal"
+      :modal="$store.getters.getNameModal"
       title="Novo Arquivo:"
       @closeModal="$emit('closeModal', $event)"
     >
       <form>
         <v-row sm="12">
-          <div style="margin-top: 2em;">
+          <div style="margin-top: 2em">
             <DefaultInput
               type="text"
+              newStyle="large"
               label="Nome do seu arquivo"
               placeholder="Digite o nome do seu arquivo"
-              v-model="test"
+              @change="form.fileName = $event.target.value"
             />
           </div>
         </v-row>
+        <footer class="nameModal-footer">
+          <Button
+            class="btn"
+            title="Cancelar"
+            type="submit"
+            newStyle="hover-red"
+            @click="$emit('closeModal', $event)"
+          />
+          <Button
+            class="btn"
+            title="Confirmar"
+            type="submit"
+            @click="$emit('click-name-confirm', $event)"
+          />
+        </footer>
       </form>
     </DefaultModal>
   </div>
@@ -168,8 +186,21 @@ export default defineComponent({
   aside {
     opacity: 1;
   }
-  @media only screen and (min-width: 1100px) {
-    height: 81.5vh;
+  @media only screen and (min-width: 1100px) and (max-width: 1769px) {
+    height: 72vh;
+  }
+  @media only screen and (min-width: 1770px) {
+    height: 81.3vh;
+  }
+}
+
+.nameModal-footer {
+  display: flex;
+  margin-top: 3.7em;
+  justify-content: flex-end;
+
+  .btn {
+    padding: 0 10px;
   }
 }
 </style>
