@@ -9,6 +9,7 @@ export interface DashState {
   loader: boolean;
   tabs: Array<object>;
   nameModal: boolean;
+  currentFileName: string;
 }
 
 export const DashboardModule = {
@@ -23,6 +24,7 @@ export const DashboardModule = {
     loader: false,
     tabs: [],
     nameModal: false,
+    currentFileName: "",
   }),
   getters: {
     getFiles: (state: { files: any }) => {
@@ -54,6 +56,9 @@ export const DashboardModule = {
     },
     getNameModal: (state: { nameModal: any }) => {
       return state.nameModal;
+    },
+    getCurrentFileName: (state: { currentFileName: any }) => {
+      return state.currentFileName;
     },
   },
   mutations: {
@@ -104,6 +109,9 @@ export const DashboardModule = {
     },
     setNameModal: (state: { nameModal: any }, value: boolean) => {
       state.nameModal = value;
+    },
+    setCurrentFileName: (state: { currentFileName: any }, value: string) => {
+      state.currentFileName = value;
     },
   },
 };

@@ -105,7 +105,6 @@ export default defineComponent({
   data() {
     return {
       width: 0,
-      teste: "",
     };
   },
   created() {
@@ -156,7 +155,7 @@ export default defineComponent({
               newStyle="large"
               label="Nome do seu arquivo"
               placeholder="Digite o nome do seu arquivo"
-              @change="form.fileName = $event.target.value"
+              @change="$emit('change-file', $event)"
             />
           </div>
         </v-row>
