@@ -12,6 +12,7 @@
                 id="file_open"
                 ref="myFiles"
                 class="file_open"
+                @click="readFile()"
               />
               <label for="file_open" class="label_open"> Abrir </label>
             </li>
@@ -107,6 +108,17 @@ export default defineComponent({
     newFile() {
       this.$store.commit("setNameModal", true);
     },
+    readFile() {
+      const file = this.$refs.myFiles.files[0];
+      const reader = new FileReader();
+      if (file.name.includes(".aim")) {
+        reader.onload = (res: any) => {
+          console.log (res.target.result);
+        };
+        reader.onerror = (err) => console.log(err);
+        reader.readAsText(file);
+      }
+    }
   },
 });
 </script>
