@@ -2,7 +2,7 @@
   <div v-if="$route.fullPath == '/dashboard'" class="menu_options">
     <ul class="menu_list">
       <div class="drop-file-wrap">
-        <li @click="toggleFile()" @mouseover="toggleFile()">Arquivo</li>
+        <li @click="toggleFile()">Arquivo</li>
         <div v-if="clickedFile" class="dropdown">
           <ul class="dropdown_list">
             <li @click="newFile()">Novo</li>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="drop-file-wrap">
-        <li @click="toggleEdit()" @mouseover="toggleEdit()">Editar</li>
+        <li @click="toggleEdit()">Editar</li>
         <div v-if="clickedEdit" class="dropdownEdit">
           <ul class="dropdown_list">
             <li>Desfazer</li>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="drop-file-wrap">
-        <li @click="toggleHelp()" @mouseover="toggleHelp()">Ajuda</li>
+        <li @click="toggleHelp()">Ajuda</li>
         <div v-if="clickedHelp" class="dropdownHelp">
           <ul class="dropdown_list">
             <li>Tutoriais em Vídeo</li>
@@ -103,14 +103,10 @@ export default defineComponent({
       var blob = new Blob([JSON.stringify(temp)], {
         type: "text/plain;charset=utf-8",
       });
-      FileSaver.saveAs(blob, "myflow.aim");
+      FileSaver.saveAs(blob, this.$store.getters.getCurrentFileName + ".aim");
     },
     newFile() {
-      console.log("AQUI");
-      this.$store.commit("setTabs", [
-        ...this.$store.getters.getTabs,
-        { title: "MyFile" + this.getId() + ".aim", value: [], isActive: true },
-      ]);
+      this.$store.commit("setNameModal", true);
     },
     readFile() {
       const file = this.$refs.myFiles.files[0];
@@ -177,6 +173,10 @@ export default defineComponent({
     .drop-file-wrap {
       position: relative;
       width: fit-content;
+      opacity: 0.8;
+      &:hover {
+        opacity: 1;
+      }
       .dropdown {
         width: 117px;
         position: absolute;
