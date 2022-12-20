@@ -117,15 +117,18 @@ export default defineComponent({
           if (e.target.result.length > 0) {
             this.$store.commit("setTabs", [
               ...this.$store.getters.getTabs,
-              { title: f.name, value: JSON.parse(e.target.result), isActive: true },
+              {
+                title: f.name,
+                value: JSON.parse(e.target.result),
+                isActive: true,
+              },
             ]);
           }
         };
-        reader.readAsText(f); 
+        reader.readAsText(f);
       } else {
-        alert("Erro! Formato não reconhecido")
+        alert("Erro! Formato não reconhecido");
       }
-  
     },
   },
 });
