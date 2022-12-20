@@ -1,6 +1,7 @@
 export interface DashState {
   files: object;
   formData: FormData;
+  openFileData: FormData;
   apiUrl: string;
   ready: boolean;
   exceptions: number;
@@ -16,6 +17,7 @@ export const DashboardModule = {
   state: (): DashState => ({
     files: {},
     formData: new FormData(),
+    openFileData: new FormData(),
     apiUrl: "",
     ready: false,
     exceptions: 0,
@@ -32,6 +34,9 @@ export const DashboardModule = {
     },
     getFormData: (state: { formData: any }) => {
       return state.formData;
+    },
+    getOpenFileData: (state: { openFileData: any }) => {
+      return state.openFileData;
     },
     getApiUrl: (state: { apiUrl: any }) => {
       return state.apiUrl;
@@ -71,6 +76,15 @@ export const DashboardModule = {
     ) {
       state.formData.append("images", value);
     },
+    setOpenFileData(state: { openFileData: any }, value: any) {
+      state.openFileData = value;
+    },
+    openFileDataAppend(
+      state: { openFileData: { append: (arg0: string, arg1: any) => void } },
+      value: any
+    ) {
+      state.openFileData.append("images", value);
+    },
     setApiUrl(state: { apiUrl: any }, value: any) {
       state.apiUrl = value;
     },
@@ -91,6 +105,9 @@ export const DashboardModule = {
     },
     setNodeList(state: { nodeList: any }, value: any) {
       state.nodeList = value;
+    },
+    pushNodeList(state: { nodeList: any }, value: any) {
+      state.nodeList.push(JSON.parse(value));
     },
     pushConnection(state: { connections: any }, value: any) {
       state.connections += value;
