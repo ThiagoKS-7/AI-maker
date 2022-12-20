@@ -9,10 +9,10 @@
             <li class="opener">
               <input
                 type="file"
-                id="file_open"
-                ref="myFiles"
+                id="filepicker"
+                ref="doc"
                 class="file_open"
-                @click="readFile()"
+                @change="readFile()"
               />
               <label for="file_open" class="label_open"> Abrir </label>
             </li>
@@ -46,7 +46,7 @@
     </ul>
   </div>
 </template>
-<script lang="ts">
+<script>
 import FileSaver from "file-saver";
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
@@ -59,10 +59,11 @@ export default defineComponent({
       clickedEdit: false,
       clickedTools: false,
       clickedHelp: false,
+      file: "",
     };
   },
   computed: mapState({
-    nodeList: (state: any) => state.dashboard.nodeList,
+    nodeList: (state) => state.dashboard.nodeList,
   }),
   methods: {
     getId() {
@@ -96,8 +97,8 @@ export default defineComponent({
       }
     },
     saveFile() {
-      const temp: any = [];
-      this.nodeList.forEach((el: any) => {
+      const temp = [];
+      this.nodeList.forEach((el) => {
         temp.push(el);
       });
       var blob = new Blob([JSON.stringify(temp)], {
@@ -109,16 +110,23 @@ export default defineComponent({
       this.$store.commit("setNameModal", true);
     },
     readFile() {
-      const file = this.$refs.myFiles.files[0];
-      const reader = new FileReader();
-      if (file.name.includes(".aim")) {
-        reader.onload = (res: any) => {
-          console.log (res.target.result);
+      let f = this.$refs.doc.files[0];
+      if (f.name.includes(".aim")) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target.result.length > 0) {
+            this.$store.commit("setTabs", [
+              ...this.$store.getters.getTabs,
+              { title: f.name, value: JSON.parse(e.target.result), isActive: true },
+            ]);
+          }
         };
-        reader.onerror = (err) => console.log(err);
-        reader.readAsText(file);
+        reader.readAsText(f); 
+      } else {
+        alert("Erro! Formato não reconhecido")
       }
-    }
+  
+    },
   },
 });
 </script>
