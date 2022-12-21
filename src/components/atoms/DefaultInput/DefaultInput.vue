@@ -116,8 +116,9 @@ export default defineComponent({
     margin-bottom: 5px;
   }
   .default {
-    width: fit-content;
-    font-size: small;
+    width: 52vw !important;
+    max-width: 427px;
+    font-size: clamp(14px, 3.7vw, 20px);
     padding: 0 13px;
     background: #081326;
     color: white;
@@ -126,14 +127,14 @@ export default defineComponent({
     border-radius: 4px;
   }
   .large {
-    width: fit-content;
-    font-size: 20px;
+    font-size: clamp(14px, 3.7vw, 20px);
+    width: 52vw !important;
+    max-width: 427px;
     padding: 0 0 0 5px;
     background: #081326;
     color: white;
     border: 2px solid rgb(24, 93, 172);
     min-height: 45px;
-    min-width: 422px;
     border-radius: 4px;
   }
 }

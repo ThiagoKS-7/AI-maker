@@ -1,6 +1,6 @@
 <template>
-  <div class="table_node">
-    <Handle id="oD__handle-top" type="source" :position="Position.Top" />
+  <div class="table_node" id="ocr__handle-top">
+    <Handle id="ocr__handle-top" type="source" :position="Position.Top" />
     <div class="table_margin">
       <section class="img_preview">
         <i @click="openCode()" class="code_icon">{{ code }}</i>
@@ -39,7 +39,7 @@
       <h5 class="title">Tesseract OCR</h5>
     </div>
   </div>
-  <Handle id="oD__handle-bottom" type="source" :position="Position.Bottom" />
+  <Handle id="ocr__handle-bottom" type="source" :position="Position.Bottom" />
 </template>
 <script>
 import { defineComponent } from "vue";
