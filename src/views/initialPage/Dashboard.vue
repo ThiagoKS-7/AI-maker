@@ -83,6 +83,7 @@ export default defineComponent({
   },
   methods: {
     selectTab(i) {
+      this.clearAll();
       this.selectedIndex = i;
       this.$store.getters.getTabs.forEach((tab, index) => {
         tab.isActive = index === i;
@@ -204,9 +205,7 @@ export default defineComponent({
     },
     compile() {
       try {
-        this.getData();
         this.$store.commit("updateLoader", true);
-        this.compiler = "";
         this.$store.commit("clearException");
         this.$store.commit("setReady", true);
         this.changeStroke("lime");
