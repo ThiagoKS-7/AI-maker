@@ -93,18 +93,18 @@ export default defineComponent({
   }
   .modal_container {
     margin: 0px auto;
-    min-width: 275px;
     max-width: 500px;
-    width: 48%;
+    width: 71vw;
     border-radius: 2vh;
     height: 35%;
     min-height: 260px;
     background: linear-gradient(to right, #0a2044, #0b1931, rgb(47, 32, 61));
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 33%);
     transition: all 0.3s ease;
     max-height: calc(100vh - 10px);
     overflow-y: auto;
     overflow-x: auto;
+}
   }
   .header {
     display: flex;
@@ -242,5 +242,4 @@ export default defineComponent({
     background: rgb(170, 170, 170);
     border-radius: 0 8px 8px 0;
   }
-}
 </style>

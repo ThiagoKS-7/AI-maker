@@ -40,20 +40,40 @@ const onDragOver = (event: any) => {
   }
 };
 onConnect((params) => {
-  let con = "#" + params.source[2] + params.target[2];
-  addEdges([
-    {
-      ...params,
-      animated: true,
-      style: {
-        stroke: "cyan",
-        "stroke-width": "3px",
-        filter: "drop-shadow(0 0 0.4em lightblue)",
-      },
-    },
-  ]);
-  store.commit("pushConnection", con);
+  validateConnection(params);
 });
+const validateConnection = (params:any) => {
+  let isSource = params.sourceHandle === "fD__handle-bottom";
+  let haveRightTarget = params.targetHandle === "oD__handle-top";
+  if (isSource && haveRightTarget) {
+    addEdges([
+      {
+        ...params,
+        animated: true,
+        style: {
+          stroke: "cyan",
+          "stroke-width": "3px",
+          filter: "drop-shadow(0 0 0.4em lightblue)",
+        },
+      },
+    ]);
+  } else {
+    const doc:any = document.getElementById("ocr__handle-top");
+    doc.style.cursor = "not-allowed";
+    addEdges([
+      {
+        ...params,
+        animated: true,
+        style: {
+          stroke: "red",
+          "stroke-width": "3px",
+          filter: "drop-shadow(0 0 0.4em red)",
+        },
+      },
+    ]);
+    store.commit("increaseException");
+  }
+};
 const onDrop = (event: any) => {
   if (event.dataTransfer) {
     const type = event.dataTransfer?.getData("application/vueflow");
