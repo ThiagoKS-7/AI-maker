@@ -42,7 +42,7 @@ const onDragOver = (event: any) => {
 onConnect((params) => {
   validateConnection(params);
 });
-const validateConnection = (params:any) => {
+const validateConnection = (params: any) => {
   let isSource = params.sourceHandle === "fD__handle-bottom";
   let haveRightTarget = params.targetHandle === "oD__handle-top";
   if (isSource && haveRightTarget) {
@@ -58,7 +58,7 @@ const validateConnection = (params:any) => {
       },
     ]);
   } else {
-    const doc:any = document.getElementById("ocr__handle-top");
+    const doc: any = document.getElementById("ocr__handle-top");
     doc.style.cursor = "not-allowed";
     addEdges([
       {
