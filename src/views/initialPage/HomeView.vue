@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrapper">
+  <div class="page-wrapper" v-show="$store.getters.getSignedIn == true">
     <HomeTable
       @click-new="goTo('/dashboard')"
       @click-mng="goTo('/mng-projects')"

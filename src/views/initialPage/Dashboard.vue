@@ -1,5 +1,5 @@
 <template>
-  <div class="dash-wrapper">
+  <div class="dash-wrapper" v-show="$store.getters.getSignedIn == true">
     <div class="ldr_wrapper" v-show="loader">
       <div class="center">
         <div class="planet"></div>

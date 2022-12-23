@@ -1,5 +1,5 @@
 <template>
-  <div class="cloud-wrapper">
+  <div class="cloud-wrapper" v-show="$store.getters.getSignedIn == true">
     <h1>Cloud</h1>
     <button @click="back()">Voltar</button>
   </div>
