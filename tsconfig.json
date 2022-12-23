@@ -26,7 +26,8 @@
     "tests/**/*.tsx",
     "src/plugins/api.ts",
     "src/plugins/api.ts",
-    "src/main.js"
+    "src/main.js", 
+    "src/firebase.ts",  
   ],
   "exclude": ["node_modules"]
 }

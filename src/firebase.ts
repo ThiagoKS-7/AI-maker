@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 // TODO: Replace the following with your app's Firebase project configuration
+
 const firebaseConfig = {
   apiKey: `${process.env.VUE_APP_API_KEY}`,
   authDomain: `${process.env.VUE_APP_AUTH_DOMAIN}`,

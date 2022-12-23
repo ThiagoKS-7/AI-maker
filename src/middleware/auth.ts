@@ -1,4 +1,3 @@
-import firebaseConfig from "../firebase";
 import {
   getAuth,
   signInWithPopup,
@@ -7,7 +6,6 @@ import {
   TwitterAuthProvider,
   GithubAuthProvider,
 } from "firebase/auth";
-firebaseConfig;
 const provider = new GoogleAuthProvider();
 const providerTwitter = new TwitterAuthProvider();
 const providerGithub = new GithubAuthProvider();
@@ -15,6 +13,7 @@ const auth = getAuth();
 export function handleSignInGoogle() {
   signInWithPopup(auth, provider)
     .then((result) => {
+      console.log(result);
       console.log(result.user.displayName);
     })
     .catch((error) => {
@@ -24,6 +23,7 @@ export function handleSignInGoogle() {
 export function handleSignInTwitter() {
   signInWithPopup(auth, providerTwitter)
     .then((result) => {
+      console.log(result);
       console.log(result.user.displayName);
     })
     .catch((error) => {
@@ -33,6 +33,7 @@ export function handleSignInTwitter() {
 export function handleSignInGitHub() {
   signInWithPopup(auth, providerGithub)
     .then((result) => {
+      console.log(result);
       console.log(result.user.displayName);
     })
     .catch((error) => {
