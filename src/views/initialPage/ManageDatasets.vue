@@ -1,5 +1,5 @@
 <template>
-  <div class="datasets-wrapper">
+  <div class="datasets-wrapper" v-show="$store.getters.getSignedIn == true">
     <h1>Datasets</h1>
     <button @click="back()">Voltar</button>
   </div>

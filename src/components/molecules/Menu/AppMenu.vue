@@ -1,31 +1,112 @@
 <template>
   <div class="menu">
-    <div class="icons">
-      <img
-        class="menu_icon"
-        src="@/assets/initialPage/home.svg"
-        @click="$router.push('/')"
-      />
+    <div
+      class="icons"
+      v-if="$store.getters.getSignedIn && $store.getters.getSignedIn != false"
+    >
+      <img :src="user.img" alt="" class="avatar" />
+      <div class="user_info">
+        <span class="username">{{ user.name }}</span>
+        <span class="email">{{ user.email }}</span>
+      </div>
       <img
         class="menu_icon"
         src="@/assets/initialPage/exit.svg"
-        @click="$router.push('/login')"
+        @click="handleSignOut()"
       />
     </div>
     <MenuOptions />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
 import MenuOptions from "../MenuOptions/MenuOptions.vue";
+import { defineComponent } from "vue";
+import firebaseConfig from "@/firebase";
+import {
+  getAuth,
+  signInWithPopup,
+  signOut,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+  GithubAuthProvider,
+} from "firebase/auth";
+const provider = new GoogleAuthProvider();
+const providerTwitter = new TwitterAuthProvider();
+const providerGithub = new GithubAuthProvider();
+const auth = getAuth();
+firebaseConfig;
 export default defineComponent({
   name: "AppMenu",
   components: {
     MenuOptions,
   },
+  data() {
+    return {
+      user: {
+        name: "",
+        img: "#",
+        email: "",
+      },
+    };
+  },
+  created() {
+    this.getUser();
+  },
+  mounted() {
+    this.checkUser();
+  },
+  methods: {
+    getUser() {
+      const name = localStorage.getItem("username");
+      const email = localStorage.getItem("email");
+      const img = localStorage.getItem("img");
+      this.user.name = name as string;
+      this.user.email = email as string;
+      this.user.img = img as string;
+    },
+    checkUser() {
+      if (this.$store.getters.getSignedIn == true) {
+        this.getUser();
+      } else {
+        this.handleSignOut();
+      }
+    },
+    handleSignOut() {
+      signOut(auth)
+        .then(() => {
+          this.$store.commit("setUser", {});
+          localStorage.setItem("username", "-");
+          localStorage.setItem("email", "-");
+          localStorage.setItem("img", "-");
+          this.$store.commit("setSignedIn", false);
+          this.$router.push("/auth");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/auth");
+        });
+    },
+  },
 });
 </script>
 <style lang="scss">
+.avatar {
+  width: 45px;
+  height: 45px;
+}
+.user_info {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+  .username {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .password {
+    font-size: 9px;
+    color: rgb(153, 153, 153);
+  }
+}
 .menu {
   color: white;
   background-color: transparent;
@@ -40,6 +121,8 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     width: 80px;
+    width: fit-content;
+    align-items: center;
     .menu_icon {
       width: 30px;
       height: 30px;

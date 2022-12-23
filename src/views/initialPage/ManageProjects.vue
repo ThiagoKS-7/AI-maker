@@ -1,5 +1,5 @@
 <template>
-  <div class="projects-wrapper">
+  <div class="projects-wrapper" v-show="$store.getters.getSignedIn == true">
     <h1>Gerenciar</h1>
     <button @click="back()">Voltar</button>
   </div>

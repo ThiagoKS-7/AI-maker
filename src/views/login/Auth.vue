@@ -7,18 +7,18 @@
     <h1 class="title">Bem vindo</h1>
     <h1 class="title">ao</h1>
     <h1 class="title">AI Maker</h1>
-    <button @click="googleLogin()" class="google_button">
+    <button @click="handleSignInGoogle()" class="google_button">
       <img
         class="button_icon"
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
       />
       <span>Sign in with Google</span>
     </button>
-    <button @click="twitterLogin()" class="twitter_button">
+    <button @click="handleSignInTwitter()" class="twitter_button">
       <i class="devicon-twitter-original button_icon"></i>
       <span>Sign in with Twitter</span>
     </button>
-    <button @click="githubLogin()" class="github_button">
+    <button @click="handleSignInGitHub()" class="github_button">
       <i class="devicon-github-original button_icon"></i>
       <span>Sign in with Github</span>
     </button>
@@ -29,10 +29,17 @@
 import { defineComponent } from "vue";
 import firebaseConfig from "@/firebase";
 import {
-  handleSignInGoogle,
-  handleSignInGitHub,
-  handleSignInTwitter,
-} from "@/middleware/auth";
+  getAuth,
+  signInWithPopup,
+  signOut,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+  GithubAuthProvider,
+} from "firebase/auth";
+const provider = new GoogleAuthProvider();
+const providerTwitter = new TwitterAuthProvider();
+const providerGithub = new GithubAuthProvider();
+const auth = getAuth();
 firebaseConfig;
 export default defineComponent({
   name: "LoginView",
@@ -40,14 +47,65 @@ export default defineComponent({
     back() {
       return this.$router.push("/");
     },
-    googleLogin() {
-      return handleSignInGoogle();
+    handleSignInGoogle() {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          this.$store.commit("setUser", result.user);
+          localStorage.setItem("username", result.user.displayName as string);
+          localStorage.setItem("email", result.user.email as string);
+          localStorage.setItem("img", result.user.photoURL as string);
+          this.$store.commit("setSignedIn", true);
+          this.$router.push("/dashboard");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/auth");
+        });
     },
-    twitterLogin() {
-      return handleSignInTwitter();
+    handleSignInTwitter() {
+      signInWithPopup(auth, providerTwitter)
+        .then((result) => {
+          this.$store.commit("setUser", result.user);
+          localStorage.setItem("username", result.user.displayName as string);
+          localStorage.setItem("email", result.user.email as string);
+          localStorage.setItem("img", result.user.photoURL as string);
+          this.$store.commit("setSignedIn", true);
+          this.$router.push("/dashboard");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/auth");
+        });
     },
-    githubLogin() {
-      return handleSignInGitHub();
+    handleSignInGitHub() {
+      signInWithPopup(auth, providerGithub)
+        .then((result) => {
+          this.$store.commit("setUser", result.user);
+          localStorage.setItem("username", result.user.displayName as string);
+          localStorage.setItem("email", result.user.email as string);
+          localStorage.setItem("img", result.user.photoURL as string);
+          this.$store.commit("setSignedIn", true);
+          this.$router.push("/dashboard");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/auth");
+        });
+    },
+    handleSignOut() {
+      signOut(auth)
+        .then(() => {
+          this.$store.commit("setUser", {});
+          localStorage.setItem("username", "-");
+          localStorage.setItem("email", "-");
+          localStorage.setItem("img", "-");
+          this.$store.commit("setSignedIn", false);
+          this.$router.push("/auth");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$router.push("/auth");
+        });
     },
   },
 });
