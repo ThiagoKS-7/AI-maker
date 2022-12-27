@@ -23,18 +23,7 @@ import MenuOptions from "../MenuOptions/MenuOptions.vue";
 import { defineComponent } from "vue";
 import firebaseConfig from "@/firebase";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
-import { mapState } from "vuex";
-import {
-  getAuth,
-  signInWithPopup,
-  signOut,
-  GoogleAuthProvider,
-  TwitterAuthProvider,
-  GithubAuthProvider,
-} from "firebase/auth";
-const provider = new GoogleAuthProvider();
-const providerTwitter = new TwitterAuthProvider();
-const providerGithub = new GithubAuthProvider();
+import { getAuth, signOut } from "firebase/auth";
 const auth = getAuth();
 const db: any = getFirestore();
 firebaseConfig;
@@ -55,9 +44,9 @@ export default defineComponent({
     this.getUser();
   },
   computed: {
-    cImage(this:any) {
+    cImage(this: any) {
       return this.$store.getters.getImg;
-    }
+    },
   },
   mounted() {
     this.checkUser();
