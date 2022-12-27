@@ -4,7 +4,7 @@
       class="icons"
       v-if="$store.getters.getSignedIn && $store.getters.getSignedIn != false"
     >
-      <img :src="user.img" alt="" class="avatar" />
+      <img :src="cImage" alt="" class="avatar" />
       <div class="user_info">
         <span class="username">{{ user.name }}</span>
         <span class="email">{{ user.email }}</span>
@@ -23,21 +23,9 @@ import MenuOptions from "../MenuOptions/MenuOptions.vue";
 import { defineComponent } from "vue";
 import firebaseConfig from "@/firebase";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
-import {
-  getAuth,
-  signInWithPopup,
-  signOut,
-  GoogleAuthProvider,
-  TwitterAuthProvider,
-  GithubAuthProvider,
-} from "firebase/auth";
-const provider = new GoogleAuthProvider();
-const providerTwitter = new TwitterAuthProvider();
-const providerGithub = new GithubAuthProvider();
+import { getAuth, signOut } from "firebase/auth";
 const auth = getAuth();
 const db: any = getFirestore();
-const documentPath = "documents/users";
-import { debounce } from "debounce";
 firebaseConfig;
 export default defineComponent({
   name: "AppMenu",
@@ -48,18 +36,17 @@ export default defineComponent({
     return {
       user: {
         name: "",
-        img: "#",
         email: "",
       },
     };
   },
-  firestore() {
-    return {
-      firebaseData: db.doc(documentPath),
-    };
-  },
   created() {
     this.getUser();
+  },
+  computed: {
+    cImage(this: any) {
+      return this.$store.getters.getImg;
+    },
   },
   mounted() {
     this.checkUser();
@@ -68,16 +55,23 @@ export default defineComponent({
     async getUser() {
       const querySnapshot = await getDocs(collection(db, "documents"));
       await querySnapshot.forEach((doc: any) => {
+        this.validateSignIn(doc);
+      });
+    },
+    validateSignIn(doc: any) {
+      const data = doc.data();
+      if (data.isSignedIn) {
         if (doc.id == "users") {
-          const data = doc.data();
           this.user.name = data.username as string;
           this.user.email = data.email as string;
-          this.user.img = data.img as string;
+          this.$store.commit("setImg", data.img as string);
           this.$store.commit("setSignedIn", data.isSignedIn as boolean);
           console.log(this.$store.getters.getSignedIn);
           this.$router.push("/dashboard");
         }
-      });
+      } else {
+        this.$router.push("/auth");
+      }
     },
     checkUser() {
       if (this.$store.getters.getSignedIn == true) {
