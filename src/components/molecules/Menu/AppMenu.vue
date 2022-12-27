@@ -35,7 +35,7 @@ const provider = new GoogleAuthProvider();
 const providerTwitter = new TwitterAuthProvider();
 const providerGithub = new GithubAuthProvider();
 const auth = getAuth();
-const db:any = getFirestore();
+const db: any = getFirestore();
 const documentPath = "documents/users";
 import { debounce } from "debounce";
 firebaseConfig;
@@ -56,7 +56,7 @@ export default defineComponent({
   firestore() {
     return {
       firebaseData: db.doc(documentPath),
-    }
+    };
   },
   created() {
     this.getUser();
@@ -70,7 +70,7 @@ export default defineComponent({
       let data = (await docRef.get()).data();
       console.log(data);
       if (!data) {
-        data = {name:'',img:'',email:''}
+        data = { name: "", img: "", email: "" };
       } else {
         this.user.name = data.username as string;
         this.user.email = data.email as string;
