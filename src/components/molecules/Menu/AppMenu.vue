@@ -22,7 +22,7 @@
 import MenuOptions from "../MenuOptions/MenuOptions.vue";
 import { defineComponent } from "vue";
 import firebaseConfig from "@/firebase";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, getDocs, collection } from "firebase/firestore";
 import {
   getAuth,
   signInWithPopup,
@@ -66,22 +66,18 @@ export default defineComponent({
   },
   methods: {
     async getUser() {
-      const docRef = db.doc(documentPath);
-      let data = (await docRef.get()).data();
-      console.log(data);
-      if (!data) {
-        data = { name: "", img: "", email: "" };
-      } else {
-        this.user.name = data.username as string;
-        this.user.email = data.email as string;
-        this.user.img = data.img as string;
-      }
-      // const name = localStorage.getItem("username");
-      // const email = localStorage.getItem("email");
-      // const img = localStorage.getItem("img");
-      // this.user.name = name as string;
-      // this.user.email = email as string;
-      // this.user.img = img as string;
+      const querySnapshot = await getDocs(collection(db, "documents"));
+      await querySnapshot.forEach((doc: any) => {
+        if (doc.id == "users") {
+          const data = doc.data();
+          this.user.name = data.username as string;
+          this.user.email = data.email as string;
+          this.user.img = data.img as string;
+          this.$store.commit("setSignedIn", data.isSignedIn as boolean);
+          console.log(this.$store.getters.getSignedIn);
+          this.$router.push("/dashboard");
+        }
+      });
     },
     checkUser() {
       if (this.$store.getters.getSignedIn == true) {
