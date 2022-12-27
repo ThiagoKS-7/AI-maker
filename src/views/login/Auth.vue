@@ -28,10 +28,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import firebaseConfig from "@/firebase";
+import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { debounce } from "debounce";
 import {
   getAuth,
   signInWithPopup,
-  signOut,
   GoogleAuthProvider,
   TwitterAuthProvider,
   GithubAuthProvider,
@@ -39,8 +40,10 @@ import {
 const provider = new GoogleAuthProvider();
 const providerTwitter = new TwitterAuthProvider();
 const providerGithub = new GithubAuthProvider();
-const auth = getAuth();
 firebaseConfig;
+const auth = getAuth();
+const db: any = getFirestore();
+const docref = doc(db, "documents", "users");
 export default defineComponent({
   name: "LoginView",
   methods: {
@@ -50,62 +53,57 @@ export default defineComponent({
     handleSignInGoogle() {
       signInWithPopup(auth, provider)
         .then((result) => {
-          this.$store.commit("setUser", result.user);
-          localStorage.setItem("username", result.user.displayName as string);
-          localStorage.setItem("email", result.user.email as string);
-          localStorage.setItem("img", result.user.photoURL as string);
-          this.$store.commit("setSignedIn", true);
-          this.$router.push("/dashboard");
+          console.log("no then", result);
+          this.debounceUpdate(result);
         })
         .catch((error) => {
-          console.log(error);
-          this.$router.push("/auth");
+          this.handleException(error);
         });
     },
     handleSignInTwitter() {
       signInWithPopup(auth, providerTwitter)
         .then((result) => {
-          this.$store.commit("setUser", result.user);
-          localStorage.setItem("username", result.user.displayName as string);
-          localStorage.setItem("email", result.user.email as string);
-          localStorage.setItem("img", result.user.photoURL as string);
-          this.$store.commit("setSignedIn", true);
-          this.$router.push("/dashboard");
+          this.debounceUpdate(result);
         })
         .catch((error) => {
-          console.log(error);
-          this.$router.push("/auth");
+          this.handleException(error);
         });
     },
     handleSignInGitHub() {
       signInWithPopup(auth, providerGithub)
         .then((result) => {
-          this.$store.commit("setUser", result.user);
-          localStorage.setItem("username", result.user.displayName as string);
-          localStorage.setItem("email", result.user.email as string);
-          localStorage.setItem("img", result.user.photoURL as string);
+          this.debounceUpdate(result);
+        })
+        .catch((error) => {
+          this.handleException(error);
+        });
+    },
+    updateFirestore(docRef: any, value: any) {
+      console.log(value);
+      setDoc(docRef, value)
+        .then((docRef) => {
+          localStorage.setItem("username", value.username as string);
+          localStorage.setItem("email", value.email as string);
+          localStorage.setItem("img", value.img as string);
           this.$store.commit("setSignedIn", true);
           this.$router.push("/dashboard");
         })
-        .catch((error) => {
-          console.log(error);
-          this.$router.push("/auth");
+        .catch((error: any) => {
+          this.handleException(error);
         });
     },
-    handleSignOut() {
-      signOut(auth)
-        .then(() => {
-          this.$store.commit("setUser", {});
-          localStorage.setItem("username", "-");
-          localStorage.setItem("email", "-");
-          localStorage.setItem("img", "-");
-          this.$store.commit("setSignedIn", false);
-          this.$router.push("/auth");
-        })
-        .catch((error) => {
-          console.log(error);
-          this.$router.push("/auth");
-        });
+    debounceUpdate(value: any) {
+      const res = {
+        username: value.user.displayName as string,
+        email: value.user.email as string,
+        img: value.user.photoURL as string,
+        isSignedIn: true,
+      };
+      this.updateFirestore(docref, res);
+    },
+    handleException(e: any) {
+      console.error(e);
+      this.$router.push("/auth");
     },
   },
 });
