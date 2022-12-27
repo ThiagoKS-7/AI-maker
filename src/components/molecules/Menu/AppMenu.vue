@@ -22,6 +22,7 @@
 import MenuOptions from "../MenuOptions/MenuOptions.vue";
 import { defineComponent } from "vue";
 import firebaseConfig from "@/firebase";
+import { getFirestore } from "firebase/firestore";
 import {
   getAuth,
   signInWithPopup,
@@ -34,6 +35,9 @@ const provider = new GoogleAuthProvider();
 const providerTwitter = new TwitterAuthProvider();
 const providerGithub = new GithubAuthProvider();
 const auth = getAuth();
+const db: any = getFirestore();
+const documentPath = "documents/users";
+import { debounce } from "debounce";
 firebaseConfig;
 export default defineComponent({
   name: "AppMenu",
@@ -49,6 +53,11 @@ export default defineComponent({
       },
     };
   },
+  firestore() {
+    return {
+      firebaseData: db.doc(documentPath),
+    };
+  },
   created() {
     this.getUser();
   },
@@ -56,13 +65,23 @@ export default defineComponent({
     this.checkUser();
   },
   methods: {
-    getUser() {
-      const name = localStorage.getItem("username");
-      const email = localStorage.getItem("email");
-      const img = localStorage.getItem("img");
-      this.user.name = name as string;
-      this.user.email = email as string;
-      this.user.img = img as string;
+    async getUser() {
+      const docRef = db.doc(documentPath);
+      let data = (await docRef.get()).data();
+      console.log(data);
+      if (!data) {
+        data = { name: "", img: "", email: "" };
+      } else {
+        this.user.name = data.username as string;
+        this.user.email = data.email as string;
+        this.user.img = data.img as string;
+      }
+      // const name = localStorage.getItem("username");
+      // const email = localStorage.getItem("email");
+      // const img = localStorage.getItem("img");
+      // this.user.name = name as string;
+      // this.user.email = email as string;
+      // this.user.img = img as string;
     },
     checkUser() {
       if (this.$store.getters.getSignedIn == true) {
