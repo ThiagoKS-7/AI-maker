@@ -52,7 +52,7 @@ export default defineComponent({
     },
     handleSignInGoogle() {
       signInWithPopup(auth, provider)
-        .then((result) => {;
+        .then((result) => {
           this.debounceUpdate(result);
         })
         .catch((error) => {
