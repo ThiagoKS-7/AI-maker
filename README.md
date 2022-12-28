@@ -17,8 +17,8 @@
 ---
 
 ![image](https://user-images.githubusercontent.com/83460816/197322995-0226e54f-762d-4b68-89c0-94aebb915805.png)
-
-![image](https://user-images.githubusercontent.com/83460816/197322915-e16c8ae7-e685-4b08-8bc6-9275816d50f7.png)
+![image](https://user-images.githubusercontent.com/83460816/209750482-1f849dc5-e1f1-45ca-8bc2-2a0aee0b0178.png)
+![image](https://user-images.githubusercontent.com/83460816/209750653-b038818f-5719-48f4-8952-48a067b01b93.png)
 
 <p align="center"> A Vue.js web aplication, which has the main objective aiming to facilitate AI training, deployment & usage, with a intuitive features;
     <br> 
