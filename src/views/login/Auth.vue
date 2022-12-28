@@ -53,7 +53,6 @@ export default defineComponent({
     handleSignInGoogle() {
       signInWithPopup(auth, provider)
         .then((result) => {
-          console.log("no then", result);
           this.debounceUpdate(result);
         })
         .catch((error) => {
@@ -79,7 +78,6 @@ export default defineComponent({
         });
     },
     updateFirestore(docRef: any, value: any) {
-      console.log(value);
       setDoc(docRef, value)
         .then((docRef) => {
           localStorage.setItem("username", value.username as string);
@@ -87,6 +85,7 @@ export default defineComponent({
           localStorage.setItem("img", value.img as string);
           this.$store.commit("setSignedIn", true);
           this.$router.push("/dashboard");
+          location.reload();
         })
         .catch((error: any) => {
           this.handleException(error);

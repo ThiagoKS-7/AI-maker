@@ -40,13 +40,13 @@ export default defineComponent({
       },
     };
   },
-  created() {
-    this.getUser();
-  },
   computed: {
     cImage(this: any) {
       return this.$store.getters.getImg;
     },
+  },
+  created() {
+    this.getUser();
   },
   mounted() {
     this.checkUser();
@@ -66,7 +66,6 @@ export default defineComponent({
           this.user.email = data.email as string;
           this.$store.commit("setImg", data.img as string);
           this.$store.commit("setSignedIn", data.isSignedIn as boolean);
-          console.log(this.$store.getters.getSignedIn);
           this.$router.push("/dashboard");
         }
       } else {
@@ -74,7 +73,7 @@ export default defineComponent({
       }
     },
     checkUser() {
-      if (this.$store.getters.getSignedIn == true) {
+      if (this.$store.getters.getSignedIn) {
         this.getUser();
       } else {
         this.handleSignOut();
@@ -102,6 +101,7 @@ export default defineComponent({
 .avatar {
   width: 45px;
   height: 45px;
+  border-radius: 2em;
 }
 .user_info {
   display: flex;
@@ -110,6 +110,12 @@ export default defineComponent({
   .username {
     font-size: 17px;
     font-weight: bold;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .email {
+    font-size: 14px;
+    color: #b8b6b6;
   }
   .password {
     font-size: 9px;
